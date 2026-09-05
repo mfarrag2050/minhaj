@@ -8,15 +8,16 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;700&display=swap">
 <style>
 :root{
-  --paper:#F4F4EF; --ink:#16211B; --ink2:#3A473F; --muted:#6C7469;
-  --olive:#4A6B4F; --ochre:#A8752E; --rule:#DCDBD1; --card:#EAE9E1;
-  --dk-bg:#131C17; --dk-fg:#F2F2EC; --dk-dim:#93A096; --dk-acc:#C99552;
+  /* parchment & gold — a single committed visual world */
+  --paper:#F7F2E6; --paper2:#F1EADA; --ink:#12201A; --ink2:#37453B; --muted:#7A7365;
+  --olive:#3F6350; --gold:#A8802F; --gold-lt:#D9AE5F; --ochre:#A8802F; --rose:#7A2E3B;
+  --rule:#E0D5BC; --card:#F1E9D7;
+  --dk-bg:#0E1815; --dk-bg2:#16241D; --dk-fg:#F5EEDC; --dk-dim:#9AA593; --dk-acc:#D9AE5F;
+  --tile:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2764%27%20height%3D%2764%27%20viewBox%3D%270%200%2064%2064%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23D9AE5F%27%20stroke-width%3D%271.1%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M32.00%206.00%20L36.78%2020.45%20L50.38%2013.62%20L43.55%2027.22%20L58.00%2032.00%20L43.55%2036.78%20L50.38%2050.38%20L36.78%2043.55%20L32.00%2058.00%20L27.22%2043.55%20L13.62%2050.38%20L20.45%2036.78%20L6.00%2032.00%20L20.45%2027.22%20L13.62%2013.62%20L27.22%2020.45%20Z%27%2F%3E%3Cpath%20d%3D%27M0%200%20L11.7%2011.7%20M64%200%20L52.3%2011.7%20M0%2064%20L11.7%2052.3%20M64%2064%20L52.3%2052.3%27%2F%3E%3Cpath%20d%3D%27M32.00%2018.50%20L34.45%2026.09%20L41.55%2022.45%20L37.91%2029.55%20L45.50%2032.00%20L37.91%2034.45%20L41.55%2041.55%20L34.45%2037.91%20L32.00%2045.50%20L29.55%2037.91%20L22.45%2041.55%20L26.09%2034.45%20L18.50%2032.00%20L26.09%2029.55%20L22.45%2022.45%20L29.55%2026.09%20Z%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --med:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27200%27%20height%3D%27200%27%20viewBox%3D%270%200%20200%20200%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23D9AE5F%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M100.00%208.00%20L116.84%2059.35%20L165.05%2034.95%20L140.65%2083.16%20L192.00%20100.00%20L140.65%20116.84%20L165.05%20165.05%20L116.84%20140.65%20L100.00%20192.00%20L83.16%20140.65%20L34.95%20165.05%20L59.35%20116.84%20L8.00%20100.00%20L59.35%2083.16%20L34.95%2034.95%20L83.16%2059.35%20Z%27%20stroke-width%3D%271.6%27%20opacity%3D%27.55%27%2F%3E%3Cpath%20d%3D%27M100.00%2036.00%20L111.48%2072.28%20L145.25%2054.75%20L127.72%2088.52%20L164.00%20100.00%20L127.72%20111.48%20L145.25%20145.25%20L111.48%20127.72%20L100.00%20164.00%20L88.52%20127.72%20L54.75%20145.25%20L72.28%20111.48%20L36.00%20100.00%20L72.28%2088.52%20L54.75%2054.75%20L88.52%2072.28%20Z%27%20stroke-width%3D%271.1%27%20opacity%3D%27.35%27%2F%3E%3Ccircle%20cx%3D%27100%27%20cy%3D%27100%27%20r%3D%2794%27%20stroke-width%3D%27.9%27%20opacity%3D%27.22%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
   --sans:"Noto Kufi Arabic",system-ui,sans-serif;
   --serif:"Noto Naskh Arabic",Georgia,serif;
 }
-@media (prefers-color-scheme:dark){:root{
-  --paper:#0F1411; --ink:#E7E8E1; --ink2:#BEC3B8; --muted:#8D958A;
-  --olive:#8FB694; --ochre:#D9A55C; --rule:#26302A; --card:#161D19;}}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{background:var(--paper);color:var(--ink);font-family:var(--serif);direction:rtl;text-align:right;
@@ -155,8 +156,7 @@ figure img.fallback[data-show]{display:block}
 .pos span{font-family:var(--sans);font-size:clamp(10.5px,1.25vw,12.5px);color:var(--muted);
   padding:3px 9px;border:1px solid var(--rule);border-radius:2px;transition:background .3s,color .3s,border-color .3s}
 .pos span.on{color:var(--paper);background:var(--olive);border-color:var(--olive)}
-:root:not([data-theme="light"]) .pos span.on{color:#0F1411}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pos span.on{color:#0F1411}}
+@media (prefers-color-scheme:dark){}
 .pairs{display:grid;grid-template-columns:auto 1fr;gap:clamp(7px,1.1vw,11px) clamp(10px,1.6vw,16px);
   align-items:center}
 .pairs .syl{font-family:var(--serif);font-size:clamp(21px,2.9vw,32px);line-height:1.5;text-align:center;min-width:2.6em}
@@ -266,6 +266,74 @@ body.on-dark #bar{background:rgba(242,242,236,.15)}
 .cycle text{font-family:var(--sans);font-size:11px;fill:var(--muted)}
 .cycle .cn{fill:var(--ochre)}
 
+
+/* ---------- ornament: geometry, gold, warmth ---------- */
+.slide:not(.dark){background:
+  radial-gradient(120% 90% at 82% 0%, rgba(217,174,95,.12) 0%, rgba(217,174,95,0) 58%),
+  linear-gradient(180deg,var(--paper) 0%,var(--paper2) 100%)}
+.slide.dark{background:radial-gradient(130% 100% at 78% 12%, var(--dk-bg2) 0%, var(--dk-bg) 62%);
+  color:var(--dk-fg)}
+.slide.dark::before{content:"";position:absolute;inset:0;background-image:var(--tile);
+  background-size:74px 74px;opacity:.15;pointer-events:none;
+  -webkit-mask-image:radial-gradient(115% 95% at 78% 10%,#000 0%,rgba(0,0,0,.25) 62%,transparent 92%);
+  mask-image:radial-gradient(115% 95% at 78% 10%,#000 0%,rgba(0,0,0,.25) 62%,transparent 92%)}
+.slide:not(.dark)::before{content:"";position:absolute;inset:0;background-image:var(--tile);
+  background-size:74px 74px;opacity:.075;pointer-events:none;
+  -webkit-mask-image:radial-gradient(62% 64% at 10% 90%,#000 0%,transparent 72%);
+  mask-image:radial-gradient(62% 64% at 10% 90%,#000 0%,transparent 72%)}
+.inner{position:relative;z-index:1}
+.slide.dark .inner{position:relative;z-index:1}
+
+.eyebrow{color:var(--gold)}
+.eyebrow::after{background:linear-gradient(to left,var(--gold-lt),rgba(168,128,47,.14) 70%,transparent)}
+.rule{background:linear-gradient(to left,var(--gold-lt),var(--rule) 45%,transparent)}
+em{color:var(--gold)}
+blockquote{border-right-color:var(--gold-lt);border-right-width:3px}
+.spec{border-right-color:var(--gold-lt);border-right-width:4px;
+  background:linear-gradient(90deg,rgba(217,174,95,.12),rgba(217,174,95,0) 55%),var(--card)}
+.stat b,.stg .k,.callout h3,.hk i,.gword{color:var(--gold)}
+.rail .node::before{background:var(--gold);box-shadow:0 0 0 4px var(--paper)}
+.rail .node.mark::before{background:var(--olive)}
+.phasebar div.now{background:var(--gold)}
+.phasebar div.next{background:var(--gold-lt);opacity:.5}
+ol.num li::before{border-color:var(--gold);color:var(--gold)}
+ul.tick li::before{color:var(--gold)}
+.pairs .bar i{background:var(--gold)}
+.callout{border-color:rgba(168,128,47,.45);
+  background:linear-gradient(90deg,rgba(217,174,95,.12),rgba(217,174,95,0) 60%),var(--card)}
+.cycle .cn{fill:var(--gold)}
+.icons svg{color:var(--olive)}
+
+.dnum{position:relative;display:inline-block;color:var(--dk-acc);
+  padding:clamp(20px,4.6vh,50px) clamp(28px,5.6vh,60px)}
+.dnum::before{content:"";position:absolute;inset:0;background-image:var(--med);
+  background-size:contain;background-repeat:no-repeat;background-position:center;
+  opacity:.9;pointer-events:none}
+.dline{height:1px;background:linear-gradient(to left,rgba(217,174,95,.75),rgba(245,238,220,.14) 55%,transparent)}
+.slide.dark .mark{color:var(--dk-fg)}
+.slide.dark em{color:var(--dk-acc)}
+
+.cover .mark{font-size:clamp(38px,9vh,86px);letter-spacing:.03em;line-height:1.15}
+.cover .for{margin-top:clamp(10px,2vh,18px)}
+.cover h1{font-size:clamp(21px,4.2vh,40px);font-weight:600;color:var(--dk-fg);opacity:.93}
+.covrule{height:2px;width:clamp(90px,16vh,170px);margin:clamp(16px,3vh,30px) 0;
+  background:linear-gradient(to left,var(--dk-acc),rgba(217,174,95,.15))}
+
+@media (prefers-reduced-motion:no-preference){
+  .slide.dark.on .dnum{animation:medIn .9s cubic-bezier(.2,.7,.3,1) both}
+  .slide.dark.on .dtitle{animation:upIn .7s cubic-bezier(.2,.7,.3,1) .12s both}
+  .slide.dark.on .dline,.slide.dark.on .dsub{animation:upIn .7s cubic-bezier(.2,.7,.3,1) .22s both}
+}
+@keyframes medIn{from{opacity:0;transform:scale(.9) rotate(-8deg)}to{opacity:1;transform:none}}
+@keyframes upIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+#nav button,#idxBtn{background:rgba(247,242,230,.82);border-color:var(--rule);backdrop-filter:blur(6px)}
+#nav button:hover,#idxBtn:hover{border-color:var(--gold);color:var(--gold)}
+#bar i{background:linear-gradient(to left,var(--gold-lt),var(--gold))}
+#idx{background:var(--paper)}
+#idx li:hover{color:var(--gold)}
+body.on-dark #idxBtn,body.on-dark #nav button{background:rgba(14,24,21,.55)}
+
 /* ---------- chrome ---------- */
 #bar{position:fixed;inset:auto 0 0 0;height:3px;background:var(--rule);z-index:40}
 #bar i{display:block;height:100%;background:var(--olive);width:0;transition:width .35s ease}
@@ -347,8 +415,8 @@ body.on-dark #brand:hover{color:var(--dk-acc)}
  <div class="inner">
   <div class="mark">منهاج</div>
   <div class="for">أُعدَّت لمجلس مؤسّسة نماء · هولندا</div>
+  <div class="covrule"></div>
   <h1>مسار القراءة العربيّة<br>للأطفال في أوروبا</h1>
-  <div class="rule"></div>
   <p class="note">Arabic Literacy Pathway · Arabisch geletterdheidstraject</p>
   <figure>
    <video src="video/01-cover.mp4" poster="images/01-cover.png" autoplay muted loop playsinline preload="metadata"></video>
