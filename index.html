@@ -129,6 +129,51 @@ figcaption{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.7}
 .split{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(20px,3.4vw,44px);align-items:center}
 @media(max-width:900px){.split{grid-template-columns:1fr}}
 
+
+/* ---------- media (video + image fallback) ---------- */
+figure video{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--card)}
+figure video[data-missing]{display:none}
+figure img.fallback{display:none}
+figure img.fallback[data-show]{display:block}
+
+/* ---------- live animation demo ---------- */
+.demo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(13px,2.2vw,26px);margin-top:clamp(13px,2vw,20px)}
+@media(max-width:880px){.demo{grid-template-columns:1fr}}
+.demo-panel{border:1px solid var(--rule);background:var(--card);
+  padding:clamp(13px,2vw,22px) clamp(12px,1.8vw,20px)}
+.demo-h{font-family:var(--sans);font-size:clamp(11.5px,1.45vw,14px);font-weight:600;
+  color:var(--olive);margin-bottom:clamp(9px,1.5vw,15px);line-height:1.6;text-align:center}
+.gwrap{text-align:center}
+.glyph{font-family:var(--serif);font-size:clamp(46px,7.2vw,88px);line-height:1.3;
+  color:var(--ink);height:1.3em;transition:opacity .3s ease}
+.gword{font-family:var(--serif);font-size:clamp(17px,2.3vw,26px);color:var(--ochre);
+  height:1.7em;line-height:1.7;transition:opacity .3s ease}
+.fading{opacity:0}
+.pos{display:flex;justify-content:center;gap:6px;margin-top:clamp(8px,1.3vw,13px);flex-wrap:wrap}
+.pos span{font-family:var(--sans);font-size:clamp(10.5px,1.25vw,12.5px);color:var(--muted);
+  padding:3px 9px;border:1px solid var(--rule);border-radius:2px;transition:background .3s,color .3s,border-color .3s}
+.pos span.on{color:var(--paper);background:var(--olive);border-color:var(--olive)}
+:root:not([data-theme="light"]) .pos span.on{color:#0F1411}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pos span.on{color:#0F1411}}
+.pairs{display:grid;grid-template-columns:auto 1fr;gap:clamp(7px,1.1vw,11px) clamp(10px,1.6vw,16px);
+  align-items:center}
+.pairs .syl{font-family:var(--serif);font-size:clamp(21px,2.9vw,32px);line-height:1.5;text-align:center;min-width:2.6em}
+.pairs .bar{height:6px;background:var(--rule);border-radius:3px;overflow:hidden}
+.pairs .bar i{display:block;height:100%;background:var(--ochre);border-radius:3px;
+  transform:scaleX(0);transform-origin:right center}
+.pairs .bar.s{width:34%}
+.pairs .bar.s i{animation:fillS 3.2s cubic-bezier(.3,.7,.4,1) infinite}
+.pairs .bar.l i{animation:fillL 3.2s cubic-bezier(.3,.7,.4,1) infinite}
+@keyframes fillS{0%{transform:scaleX(0)}11%{transform:scaleX(1)}62%{transform:scaleX(1)}74%,100%{transform:scaleX(0)}}
+@keyframes fillL{0%{transform:scaleX(0)}36%{transform:scaleX(1)}62%{transform:scaleX(1)}74%,100%{transform:scaleX(0)}}
+.demo-cap{font-size:clamp(11.5px,1.4vw,13.5px);color:var(--muted);text-align:center;
+  margin-top:clamp(8px,1.2vw,12px);line-height:1.7}
+@media (prefers-reduced-motion:reduce){
+  .pairs .bar i{animation:none;transform:scaleX(1)}
+  .pairs .bar.s i{transform:scaleX(.3)}
+  .glyph,.gword{transition:none}
+}
+
 /* ---------- chrome ---------- */
 #bar{position:fixed;inset:auto 0 0 0;height:3px;background:var(--rule);z-index:40}
 #bar i{display:block;height:100%;background:var(--olive);width:0;transition:width .35s ease}
@@ -208,8 +253,9 @@ figcaption{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.7}
   <div class="rule"></div>
   <p class="note">Arabic Literacy Pathway · Arabisch geletterdheidstraject</p>
   <figure>
-   <img src="images/01-cover.png" alt="طفل يقرأ من كتاب مفتوح">
-   <div class="ph">صورة الغلاف · <span dir="ltr">images/01-cover.png</span></div>
+   <video src="video/01-cover.mp4" poster="images/01-cover.png" autoplay muted loop playsinline preload="metadata"></video>
+   <img class="fallback" src="images/01-cover.png" alt="طفل يقرأ من كتاب مفتوح">
+   <div class="ph">الغلاف · <span dir="ltr">video/01-cover.mp4</span> أو <span dir="ltr">images/01-cover.png</span></div>
   </figure>
  </div>
 </section>
@@ -473,6 +519,43 @@ figcaption{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.7}
    <div class="item"><h3>٤ · الألعاب التعليميّة</h3><p>حيث تخدم هدفاً تعليميّاً محدّداً لا لتزيين البرنامج. <strong>اللعبة تخدم الدرس ولا تحلّ محلّه</strong> — الحصّة الحيّة هي القلب، والوسائط تحيط بها.</p></div>
    <div class="item"><h3>٥ · التوطين لا الترجمة</h3><p>الأمثلة من محيط الطفل، والمقارنات الصوتيّة على لغته هو. <strong>نسخةٌ لكلّ لغة تدريس، لا نسخةٌ واحدة مترجمة إليها.</strong></p></div>
    <div class="item"><h3>٦ · دليل المعلّم</h3><p>لكلّ درسٍ دليلٌ يبيّن هدفه، والأخطاء الشائعة عنده، وكيف يُعالَج كلٌّ منها، وما الذي يُصحَّح فوراً وما يُترك لحينه.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- 17b -->
+<section class="slide" data-t="الأنيميشن — عيّنة حيّة">
+ <div class="inner">
+  <div class="eyebrow">رؤية التطوير · عيّنة تعمل الآن</div>
+  <h2>ما يقاوم الشرح اللفظيّ — <em>يُرى فيُفهَم في ثوانٍ</em></h2>
+  <p class="note">وهذه ليست صورةً للأنيميشن الموعود، بل عيّنةٌ منه تعمل أمامكم على هذه الشاشة.</p>
+  <div class="demo">
+
+   <div class="demo-panel">
+    <div class="demo-h">الحرف يتبدّل شكله بحسب موضعه من الكلمة</div>
+    <div class="gwrap">
+     <div class="glyph" id="gGlyph">ع</div>
+     <div class="gword" id="gWord">الحرف وحده</div>
+     <div class="pos" id="gPos">
+      <span>مفرد</span><span>أوّل الكلمة</span><span>وسطها</span><span>آخرها</span>
+     </div>
+    </div>
+    <div class="demo-cap">حرفٌ واحد، أربعة أشكال — وهذا أوّل ما يتعثّر عنده طفلٌ تعوّدت عينه على أبجديّةٍ ثابتة الأشكال.</div>
+   </div>
+
+   <div class="demo-panel">
+    <div class="demo-h">والحركة تُقصِّر الصوت، وحرف المدّ يمدّه</div>
+    <div class="pairs">
+     <div class="syl">بَ</div><div class="bar s"><i></i></div>
+     <div class="syl">بَا</div><div class="bar l"><i></i></div>
+     <div class="syl">بِ</div><div class="bar s"><i></i></div>
+     <div class="syl">بِي</div><div class="bar l"><i></i></div>
+     <div class="syl">بُ</div><div class="bar s"><i></i></div>
+     <div class="syl">بُو</div><div class="bar l"><i></i></div>
+    </div>
+    <div class="demo-cap">طول الشريط هو طول الصوت. تُشرح هذه بالكلام في دقائق ويبقى الالتباس، وتُرى فتُفهَم في ثانية.</div>
+   </div>
+
   </div>
  </div>
 </section>
@@ -788,7 +871,12 @@ figcaption{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.7}
   <div class="for">مسار القراءة العربيّة للأطفال في أوروبا</div>
   <h1 style="font-size:clamp(24px,4vw,44px);margin-top:34px">ومن يطلب الثقة عليه أن يقدّم <em>ما يُتحقَّق منه</em></h1>
   <div class="rule"></div>
-  <p class="note">شكراً لوقتكم. ننتظر ملاحظاتكم المكتوبة، ولقاءً نعرض فيه النظام نفسه.</p>
+  <figure>
+   <video src="video/02-rings.mp4" poster="images/02-rings.png" autoplay muted loop playsinline preload="metadata"></video>
+   <img class="fallback" src="images/02-rings.png" alt="">
+   <div class="ph">خاتمة · <span dir="ltr">video/02-rings.mp4</span></div>
+  </figure>
+  <p class="note" style="margin-top:18px">شكراً لوقتكم. ننتظر ملاحظاتكم المكتوبة، ولقاءً نعرض فيه النظام نفسه.</p>
  </div>
 </section>
 
@@ -856,14 +944,60 @@ figcaption{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.7}
     x0=null;
   },{passive:true});
 
-  // hide image frames that fail to load, keep the labelled placeholder
+  // ---- media: video first, image fallback, labelled placeholder last ----
+  function hidePh(el){var f=el.closest?el.closest('figure'):el.parentNode;
+    if(!f)return; var ph=f.querySelector('.ph'); if(ph) ph.style.display='none';}
+  function showFallback(v){
+    var f=v.closest('figure'); if(!f) return;
+    var im=f.querySelector('img.fallback');
+    if(im){ im.setAttribute('data-show','1');
+      if(im.complete&&im.naturalWidth>0) hidePh(im); }
+  }
+  [].forEach.call(document.querySelectorAll('figure video'),function(v){
+    v.addEventListener('loadeddata',function(){
+      hidePh(v);
+      var f=v.closest('figure'), im=f&&f.querySelector('img.fallback');
+      if(im) im.removeAttribute('data-show');
+      var pl=v.play(); if(pl&&pl.catch) pl.catch(function(){});
+    });
+    v.addEventListener('error',function(){v.setAttribute('data-missing','1');showFallback(v);});
+    if(v.querySelector) setTimeout(function(){ if(v.readyState===0){v.setAttribute('data-missing','1');showFallback(v);} },2500);
+  });
   [].forEach.call(document.images,function(img){
-    img.addEventListener('error',function(){img.setAttribute('data-missing','1');});
+    img.addEventListener('error',function(){img.setAttribute('data-missing','1');img.removeAttribute('data-show');});
     img.addEventListener('load',function(){
-      var ph=img.parentNode.querySelector('.ph'); if(ph) ph.style.display='none';
+      if(!img.classList.contains('fallback')||img.hasAttribute('data-show')) hidePh(img);
     });
     if(img.complete&&img.naturalWidth===0) img.setAttribute('data-missing','1');
   });
+
+  // ---- live letterform demo (real Arabic joining forms via ZWJ) ----
+  (function(){
+    var g=document.getElementById('gGlyph'), w=document.getElementById('gWord'),
+        pos=document.getElementById('gPos');
+    if(!g||!w||!pos) return;
+    var Z='\u200D';
+    var FORMS=[
+      {f:'\u0639',            word:'الحرف وحده'},
+      {f:'\u0639'+Z,          word:'\u0639\u064E\u064A\u0652\u0646'},
+      {f:Z+'\u0639'+Z,        word:'\u0633\u064E\u0639\u0650\u064A\u062F'},
+      {f:Z+'\u0639',          word:'\u0645\u064E\u0639\u064E'}
+    ];
+    var tags=pos.querySelectorAll('span'), k=0, timer=null;
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function paint(i){
+      g.textContent=FORMS[i].f; w.textContent=FORMS[i].word;
+      for(var n=0;n<tags.length;n++) tags[n].classList.toggle('on',n===i);
+    }
+    function step(){
+      k=(k+1)%FORMS.length;
+      if(reduce){paint(k);return;}
+      g.classList.add('fading'); w.classList.add('fading');
+      setTimeout(function(){paint(k);g.classList.remove('fading');w.classList.remove('fading');},300);
+    }
+    paint(0);
+    timer=setInterval(step, reduce?4200:2400);
+  })();
 
   var start=parseInt((location.hash||'').replace('#',''),10);
   go(isNaN(start)?0:start-1);
