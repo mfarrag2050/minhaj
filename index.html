@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>منهاج · عرض لمؤسّسة نماء</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;700&display=swap">
+<style>
+:root{
+  --paper:#F4F4EF; --ink:#16211B; --ink2:#3A473F; --muted:#6C7469;
+  --olive:#4A6B4F; --ochre:#A8752E; --rule:#DCDBD1; --card:#EAE9E1;
+  --sans:"Noto Kufi Arabic",system-ui,sans-serif;
+  --serif:"Noto Naskh Arabic",Georgia,serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --paper:#0F1411; --ink:#E7E8E1; --ink2:#BEC3B8; --muted:#8D958A;
+  --olive:#8FB694; --ochre:#D9A55C; --rule:#26302A; --card:#161D19;}}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);direction:rtl;text-align:right;
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+
+/* ---------- deck ---------- */
+#deck{position:relative;height:100dvh;min-height:520px}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;
+  justify-content:center;padding:clamp(28px,5vw,72px) clamp(24px,7vw,110px) 92px;
+  overflow-y:auto;overscroll-behavior:contain}
+.slide.on{display:flex;animation:in .42s cubic-bezier(.22,.7,.3,1)}
+@keyframes in{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}}
+.inner{width:100%;max-width:1000px;margin:0 auto}
+
+/* ---------- type ---------- */
+.eyebrow{font-family:var(--sans);font-size:clamp(11px,1.4vw,13px);font-weight:600;
+  letter-spacing:.2em;color:var(--olive);margin-bottom:clamp(14px,2.4vw,26px);
+  display:flex;align-items:center;gap:12px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--rule)}
+h1{font-family:var(--sans);font-weight:700;font-size:clamp(30px,5.6vw,62px);
+  line-height:1.45;letter-spacing:-.015em;text-wrap:balance}
+h2{font-family:var(--sans);font-weight:700;font-size:clamp(24px,3.9vw,42px);
+  line-height:1.5;letter-spacing:-.01em;text-wrap:balance;margin-bottom:clamp(16px,2.4vw,28px)}
+h3{font-family:var(--sans);font-weight:600;font-size:clamp(16px,1.9vw,20px);margin-bottom:6px}
+em{font-style:normal;color:var(--ochre)}
+p{font-size:clamp(15px,1.75vw,19px);line-height:1.95;color:var(--ink2);
+  max-width:70ch;margin-bottom:14px}
+p:last-child{margin-bottom:0}
+strong{color:var(--ink);font-weight:700}
+.lead{font-size:clamp(17px,2.1vw,23px);color:var(--ink);line-height:1.85}
+.note{font-size:clamp(13px,1.5vw,15px);color:var(--muted);line-height:1.8}
+
+/* ---------- cover ---------- */
+.cover{justify-content:center}
+.cover .mark{font-family:var(--sans);font-size:clamp(28px,4.4vw,44px);font-weight:700;letter-spacing:.02em}
+.cover .for{font-family:var(--sans);font-size:clamp(12px,1.5vw,15px);letter-spacing:.16em;
+  color:var(--muted);margin-top:10px}
+.cover h1{margin-top:clamp(26px,4vw,44px)}
+.rule{height:1px;background:var(--rule);margin:clamp(22px,3.4vw,38px) 0}
+
+/* ---------- specimen ---------- */
+.spec{background:var(--card);border-right:4px solid var(--ochre);
+  padding:clamp(20px,3vw,34px) clamp(18px,2.6vw,30px);margin:clamp(16px,2.4vw,26px) 0;
+  font-family:var(--serif);font-weight:500;font-size:clamp(20px,3.4vw,38px);
+  line-height:2;overflow-x:auto;white-space:nowrap}
+
+/* ---------- grids ---------- */
+.g{display:grid;gap:clamp(14px,2vw,22px)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:820px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.item p{font-size:clamp(14px,1.6vw,16.5px);line-height:1.8;margin:0}
+
+/* ---------- stat strip ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);
+  border:1px solid var(--rule);margin-top:clamp(18px,2.6vw,30px)}
+.stat{background:var(--paper);padding:clamp(14px,2vw,22px) 10px;text-align:center}
+.stat b{font-family:var(--sans);display:block;font-size:clamp(22px,3.2vw,34px);
+  font-weight:700;color:var(--olive);line-height:1.35;font-variant-numeric:tabular-nums}
+.stat span{display:block;font-size:clamp(12px,1.4vw,14px);color:var(--muted);margin-top:4px}
+@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- rows / table ---------- */
+.rows{border-top:1px solid var(--rule)}
+.row{display:grid;grid-template-columns:minmax(120px,1fr) 2.4fr;gap:clamp(12px,2vw,26px);
+  padding:clamp(11px,1.6vw,16px) 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.row .lbl{font-family:var(--sans);font-weight:600;font-size:clamp(14px,1.6vw,16px);color:var(--ink)}
+.row .val{font-size:clamp(14px,1.6vw,17px);line-height:1.8;color:var(--ink2)}
+@media(max-width:700px){.row{grid-template-columns:1fr;gap:2px}}
+
+/* ---------- numbered / ticks ---------- */
+ol.num{list-style:none;counter-reset:n;display:grid;gap:clamp(11px,1.6vw,16px)}
+ol.num li{counter-increment:n;position:relative;padding-right:44px;
+  font-size:clamp(14px,1.65vw,17px);line-height:1.8;color:var(--ink2)}
+ol.num li::before{content:counter(n);position:absolute;right:0;top:1px;width:27px;height:27px;
+  border:1px solid var(--olive);color:var(--olive);border-radius:50%;
+  font-family:var(--sans);font-size:12px;font-weight:600;display:grid;place-items:center}
+ul.tick{list-style:none;display:grid;gap:clamp(10px,1.5vw,15px)}
+ul.tick li{position:relative;padding-right:32px;font-size:clamp(14px,1.65vw,17px);
+  line-height:1.8;color:var(--ink2)}
+ul.tick li::before{content:"✓";position:absolute;right:0;top:0;color:var(--olive);font-size:15px}
+ul.tick li b{color:var(--ink);font-family:var(--sans);font-weight:600}
+
+/* ---------- stages ---------- */
+.stages{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.stg{background:var(--paper);padding:clamp(13px,1.9vw,19px) clamp(14px,2vw,22px);
+  display:grid;grid-template-columns:38px 1fr;gap:clamp(10px,1.6vw,18px);align-items:baseline}
+.stg .k{font-family:var(--sans);font-weight:700;color:var(--ochre);
+  font-size:clamp(13px,1.5vw,15px);font-variant-numeric:tabular-nums}
+.stg .t{font-family:var(--sans);font-weight:600;font-size:clamp(15px,1.75vw,18px)}
+.stg .d{font-size:clamp(13.5px,1.55vw,16px);color:var(--muted);line-height:1.75}
+
+/* ---------- quote / callout ---------- */
+blockquote{border-right:3px solid var(--ochre);padding-right:clamp(16px,2.2vw,24px);
+  font-size:clamp(17px,2.3vw,26px);line-height:1.8;color:var(--ink);font-family:var(--sans);
+  font-weight:500;text-wrap:balance}
+.callout{border:1px solid var(--olive);background:var(--card);
+  padding:clamp(18px,2.6vw,28px);margin-top:clamp(16px,2.2vw,24px)}
+.callout h3{color:var(--olive)}
+
+/* ---------- figure ---------- */
+figure{margin:clamp(16px,2.4vw,26px) 0 0}
+.g figure{margin:0}
+figure img{width:100%;height:auto;display:block;border:1px solid var(--rule)}
+figure img[data-missing]{display:none}
+.ph{border:1px dashed var(--rule);background:var(--card);color:var(--muted);
+  font-family:var(--sans);font-size:13px;padding:clamp(26px,5vw,54px) 20px;text-align:center;line-height:1.9}
+figcaption{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.7}
+.split{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(20px,3.4vw,44px);align-items:center}
+@media(max-width:900px){.split{grid-template-columns:1fr}}
+
+/* ---------- chrome ---------- */
+#bar{position:fixed;inset:auto 0 0 0;height:3px;background:var(--rule);z-index:40}
+#bar i{display:block;height:100%;background:var(--olive);width:0;transition:width .35s ease}
+#nav{position:fixed;bottom:16px;left:0;right:0;z-index:41;display:flex;
+  justify-content:center;align-items:center;gap:10px;pointer-events:none}
+#nav button,#idxBtn{pointer-events:auto;font-family:var(--sans);font-size:13px;
+  background:var(--paper);color:var(--ink2);border:1px solid var(--rule);
+  padding:7px 14px;cursor:pointer;border-radius:2px;line-height:1.6}
+#nav button:hover,#idxBtn:hover{border-color:var(--olive);color:var(--olive)}
+#nav button:focus-visible,#idxBtn:focus-visible{outline:2px solid var(--ochre);outline-offset:2px}
+#count{font-family:var(--sans);font-size:12px;color:var(--muted);
+  font-variant-numeric:tabular-nums;min-width:58px;text-align:center}
+#brand{position:fixed;top:16px;right:clamp(20px,7vw,110px);z-index:41;
+  font-family:var(--sans);font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.04em}
+#idxBtn{position:fixed;top:12px;left:clamp(16px,4vw,40px);z-index:42}
+#idx{position:fixed;inset:0;background:var(--paper);z-index:60;display:none;
+  overflow-y:auto;padding:64px clamp(20px,6vw,80px)}
+#idx.on{display:block}
+#idx h3{margin-bottom:20px;color:var(--olive)}
+#idx ol{list-style:none;counter-reset:i;columns:2;column-gap:40px}
+@media(max-width:760px){#idx ol{columns:1}}
+#idx li{counter-increment:i;break-inside:avoid;padding:7px 0;font-family:var(--sans);
+  font-size:14.5px;cursor:pointer;color:var(--ink2);border-bottom:1px solid var(--rule)}
+#idx li:hover{color:var(--ochre)}
+#idx li::before{content:counter(i) ". ";color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* ---------- short viewports (projectors, laptops) ---------- */
+@media (max-height:1000px){
+  .slide{padding-top:clamp(18px,3vh,38px);padding-bottom:74px}
+  h1{font-size:clamp(25px,4.6vh,46px);line-height:1.4}
+  h2{font-size:clamp(19px,3.3vh,32px);line-height:1.42;margin-bottom:13px}
+  h3{font-size:clamp(14px,2.1vh,17px)}
+  p,.row .val,ol.num li,ul.tick li,.item p,.stg .d{font-size:clamp(12.5px,1.95vh,16px);line-height:1.68}
+  .lead{font-size:clamp(14px,2.4vh,19px);line-height:1.62}
+  .note{font-size:clamp(11.5px,1.7vh,14px);line-height:1.6}
+  p{margin-bottom:9px}
+  .eyebrow{margin-bottom:11px}
+  .row{padding:7px 0}
+  .stg{padding:8px 14px}
+  .stg .t{font-size:clamp(13px,2vh,16px)}
+  ol.num,ul.tick,.g{gap:9px}
+  blockquote{font-size:clamp(14px,2.5vh,21px);line-height:1.58}
+  .rule{margin:13px 0}
+  .spec{font-size:clamp(17px,3.6vh,30px);padding:14px 18px;margin:13px 0;line-height:1.85}
+  .stat{padding:9px 8px}
+  .stat b{font-size:clamp(17px,3.1vh,28px)}
+  .stat span{font-size:clamp(10.5px,1.5vh,13px)}
+  .callout{padding:13px 16px;margin-top:12px}
+  .stats{margin-top:13px}
+  figure{margin-top:12px}
+  .ph{padding:18px 16px;font-size:12px}
+  figcaption{margin-top:5px}
+}
+@media (max-height:700px){
+  .slide{padding-bottom:66px}
+  #nav{bottom:10px}
+  h1{font-size:clamp(22px,4.4vh,34px)}
+  h2{font-size:clamp(17px,3.2vh,25px)}
+}
+@media print{#nav,#bar,#brand,#idxBtn{display:none}
+  .slide{display:flex!important;position:static;page-break-after:always;height:100vh}}
+</style>
+</head>
+<body>
+
+<div id="brand">منهاج</div>
+<button id="idxBtn" aria-label="الفهرس">☰ الفهرس</button>
+
+<div id="deck">
+
+<!-- 1 -->
+<section class="slide cover" data-t="الغلاف">
+ <div class="inner">
+  <div class="mark">منهاج</div>
+  <div class="for">أُعدَّت لمجلس مؤسّسة نماء · هولندا</div>
+  <h1>مسار القراءة العربيّة<br>للأطفال في أوروبا</h1>
+  <div class="rule"></div>
+  <p class="note">Arabic Literacy Pathway · Arabisch geletterdheidstraject</p>
+  <figure>
+   <img src="images/01-cover.png" alt="طفل يقرأ من كتاب مفتوح">
+   <div class="ph">صورة الغلاف · <span dir="ltr">images/01-cover.png</span></div>
+  </figure>
+ </div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-t="إلى مجلس نماء">
+ <div class="inner">
+  <div class="eyebrow">رسالة افتتاح</div>
+  <h2>إلى مجلس مؤسّسة نماء</h2>
+  <p class="lead">نكتب إليكم لأنّكم تعرفون هذه المشكلة قبل أن نصفها لكم: أطفالٌ في بيوت هولنديّة يسمعون العربيّة ولا يقرؤونها، وأسرٌ جرّبت أكثر من حلٍّ ولم يكتمل لها واحد.</p>
+  <p>نكتب إليكم تحديداً لأنّ ما نبنيه يحتاج إلى شيئين لا نملكهما: <strong>معرفةً بهذا المجتمع من داخله</strong>، و<strong>ثقةً لا تُشترى بإعلان</strong>. وكلاهما عند نماء.</p>
+  <blockquote>وما نعرضه ليس طلبَ تزكية. نبدأ بتجربةٍ داخل نماء تحكمون عليها بأنفسكم، ولا نطلب منكم أن تعرّفوا بها أحداً قبل أن تقتنعوا. فإن لم تقنعكم، فقد وفّرنا عليكم وعلينا سنةً من العمل.</blockquote>
+ </div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-t="المشكلة">
+ <div class="inner">
+  <div class="eyebrow">القسم الأوّل · البرنامج</div>
+  <h2>ثلاثة حلول متاحة — <em>ولا واحد منها صُمِّم لهذا الطفل</em></h2>
+  <div class="g g3">
+   <div class="item"><h3>درسٌ في المسجد أو المركز</h3><p>عشرون طفلاً بمستويات متباينة على معلّمٍ واحد لا يتكلّم لغتهم. يبدؤون بحماسة، وينسحب أكثرهم بعد أسابيع — لا لأنّ الطفل عجز، بل لأنّه لم يفهم التعليمات أصلاً.</p></div>
+   <div class="item"><h3>تطبيقٌ على الهاتف</h3><p>يعلّم أسماء الحروف ولا يصنع قارئاً. الطفل يعرف أنّ هذا الشكل اسمه «باء»، ولا يستطيع أن يقرأ كلمة.</p></div>
+   <div class="item"><h3>معلّمٌ خاصّ</h3><p>بلا منهج ولا سقفٍ زمنيّ ولا طريقةٍ لقياس التقدّم. تمضي سنة والأهل لا يعرفون: هل تقدّم ابننا فعلاً؟</p></div>
+  </div>
+  <div class="rule"></div>
+  <p><strong>والقاسم المشترك بين الثلاثة</strong> أنّ أحداً منها لم يُصمَّم لطفلٍ يعيش في أوروبا ولغته الأولى هولنديّة أو ألمانيّة أو فرنسيّة. كلّها مصمَّمة لطفلٍ يعرف العربيّة أصلاً، ثمّ نُقلت كما هي إلى سياقٍ مختلفٍ تماماً.</p>
+ </div>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-t="الوعد">
+ <div class="inner">
+  <div class="eyebrow">ما نَعِد به</div>
+  <h2>طفلٌ لا يقرأ العربيّة، يصير قارئاً للنصّ المشكول — <em>بمعلّمٍ يتكلّم لغته</em></h2>
+  <div class="spec">فَتَحَ الْكِتَابَ وَقَرَأَ أَوَّلَ سَطْرٍ</div>
+  <p><strong>والمخرَج محدَّد وقابل للاختبار:</strong> أن يقرأ الطفل نصّاً عربيّاً مشكولاً لم يره من قبل، قراءةً صحيحة، بلا معاونة.</p>
+  <p>ليس «أن يتعرّف على الحروف»، ولا «أن يحبّ اللغة»، ولا «أن يكتسب الأساسيّات». هذه نتائج جميلة يصعب التحقّق منها. نحن نَعِد بمهارةٍ واحدة <strong>يستطيع الأب أن يتحقّق منها بنفسه</strong>: يعطي ابنه صفحة، فيقرأ.</p>
+  <p class="note">وصدق العبارة يعنينا أكثر من وقعها: النتيجة النموذجيّة موثّقة، وليست ضماناً — الأطفال يختلفون، ودرجات الانتظام تختلف. ما نلتزم به هو <strong>الشفافيّة في القياس</strong>: معايير الاجتياز مكتوبة ومعلنة سلفاً، ونتائج كلّ دفعة تُعرض كما هي، بمن فيهم من لم يبلغ الهدف.</p>
+ </div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-t="الجسر اللغويّ">
+ <div class="inner">
+  <div class="eyebrow">الفلسفة التربويّة · ١</div>
+  <div class="split">
+   <div>
+    <h2>المعلّم يعبر بالطفل <em>من لغته</em> — ولا يشرح له بلغةٍ يجهلها</h2>
+    <p>حين يقول معلّمٌ لطفلٍ هولنديّ في السابعة: «انظر إلى الفتحة فوق الحرف»، وهو يقولها بالعربيّة، فالطفل لا يتعلّم — يقلّد صوتاً. أمّا حين تُقال له <strong>بالهولنديّة</strong>، ثمّ يُنطق الحرف بالعربيّة، فقد بُني جسر: فهم القاعدة بلغته، وطبّقها على اللغة الجديدة.</p>
+    <p><strong>معلّمونا ثنائيّو اللغة بالضرورة لا بالمصادفة.</strong> لغة الطفل شرطٌ في اختيار المعلّم كما أنّ إتقان العربيّة شرط.</p>
+    <p><strong>والتدرّج مقصود:</strong> تبدأ الحصّة بلغة الطفل شرحاً وتنتهي بالعربيّة ممارسةً، وتقلّ لغة الوساطة كلّما تقدّم — حتّى يستغني عنها. لغة الطفل جسرٌ يُعبَر عليه، لا مقامٌ يُقام فيه.</p>
+   </div>
+   <figure>
+    <img src="images/03-bridge.png" alt="جسر بين لغتين">
+    <div class="ph">صورة الجسر اللغويّ · <span dir="ltr">images/03-bridge.png</span></div>
+   </figure>
+  </div>
+ </div>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-t="المجموعة الصغيرة">
+ <div class="inner">
+  <div class="eyebrow">الفلسفة التربويّة · ٢</div>
+  <h2>المجموعة الصغيرة — <em>بين ثلاثة وخمسة</em></h2>
+  <p>اخترنا هذا المدى بعد موازنة: الطفل الواحد يفقد أثر الأقران، والعشرة يحوّلون المعلّم إلى مذيع.</p>
+  <ul class="tick">
+   <li><b>يقرأ كلّ طفلٍ بصوته في كلّ حصّة</b> — وهذا وحده يغيّر النتيجة.</li>
+   <li><b>الخطأ يُصحَّح في لحظته</b> لا بعد أسبوعٍ من ترسّخه.</li>
+   <li><b>الطفل يسمع قرينه يخطئ ويُصحَّح</b> فيتعلّم مرّتين.</li>
+   <li><b>الحياء الذي يمنعه من السؤال</b> في فصلٍ من عشرين يزول بين أربعة.</li>
+  </ul>
+  <div class="g g2" style="margin-top:16px">
+   <figure><img src="images/04a-group-boys.png" alt="مجموعة صغيرة من أربعة"><div class="ph">مجموعة الأولاد · <span dir="ltr">images/04a-group-boys.png</span></div></figure>
+   <figure><img src="images/04b-group-girls.png" alt="مجموعة صغيرة من أربع"><div class="ph">مجموعة البنات · <span dir="ltr">images/04b-group-girls.png</span></div></figure>
+  </div>
+  <p class="note" style="margin-top:18px">ونوفّر الحصّة الفرديّة لمن يحتاجها — للطفل الشديد الخجل، أو لمن يحتاج وتيرةً مختلفة.</p>
+ </div>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-t="الزمن والحصّة">
+ <div class="inner">
+  <div class="eyebrow">الفلسفة التربويّة · ٣ و٤</div>
+  <h2>ثلاث حصصٍ أسبوعيّاً — <em>لا واحدة</em></h2>
+  <p>المهارة القرائيّة تُبنى بالتكرار المتقارب لا بالجرعة المركّزة. الحصّة الأسبوعيّة الواحدة يُنفَق نصفها في استرجاع ما نُسي. وثلاث حصصٍ أسبوعيّاً تُبقي الأثر حيّاً بين الحصّة والتي تليها.</p>
+  <p><strong>والحصّة ستّون دقيقة</strong> — أطول من قدرة طفلٍ على التركيز المتّصل، ولذلك تُقسَّم داخليّاً: عرضٌ قصير، فممارسة فرديّة، فنشاط جماعيّ، فإغلاق. <strong>لا يجلس الطفل ستّين دقيقةً يستمع.</strong></p>
+  <div class="rule"></div>
+  <h3>ويقرأ من اليوم الأوّل</h3>
+  <p>لا مرحلة تمهيديّة طويلة يحفظ فيها أسماء الحروف قبل أن يُسمح له بالقراءة. من الحصّة الأولى يقرأ شيئاً — ولو مقطعاً من حرفين — لأنّ <strong>الشعور بأنّي قرأت</strong> هو الوقود الذي يُبقي طفلاً في برنامجٍ مدّته اثنا عشر أسبوعاً.</p>
+  <h3 style="margin-top:16px">والخطأ جزءٌ من التعلّم لا عيبٌ يُخفى</h3>
+  <p>المعلّم لا يوبّخ على خطأ، ولا يُسمح في فصولنا بأن يُسخر من متعثّر. <strong>الطفل الذي يخاف من الخطأ يتوقّف عن المحاولة</strong>، والذي يتوقّف عن المحاولة لا يتعلّم. هذه قاعدة صفّيّة معلنة، لا نصيحةً تُترك لاجتهاد المعلّم.</p>
+ </div>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-t="المسار ومراحله">
+ <div class="inner">
+  <div class="eyebrow">بنية البرنامج</div>
+  <h2>مسارٌ من مراحل — <em>لا دورة منفردة</em></h2>
+  <div class="stages">
+   <div class="stg"><div class="k">١</div><div><div class="t">فكّ الرمز · decoding</div><div class="d">ربط الرمز بالصوت، وأثر الحركة على المدّ — يقرأ نصّاً مشكولاً لم يره من قبل. المادّة: نصوص متدرّجة.</div></div></div>
+   <div class="stg"><div class="k">٢</div><div><div class="t">الطلاقة · fluency</div><div class="d">الدقّة والسرعة والأداء الصوتيّ — يقرأ متّصلاً بنبرٍ صحيح. المادّة: نصوص أطول.</div></div></div>
+   <div class="stg"><div class="k">٣</div><div><div class="t">التثبيت بالنصّ المرجعيّ · consolidation</div><div class="d">ترسيخ الإملاء والصرف والإيقاع عبر الاستظهار — يستظهر نصوصاً ويتعرّف بنيتها. المادّة: النصّ الكلاسيكيّ.</div></div></div>
+   <div class="stg"><div class="k">‹›</div><div><div class="t">موازٍ · القرائيّة الثقافيّة والأخلاقيّة</div><div class="d">فهم السرد واستخلاص المعنى — يقرأ سيرةً ويناقش معناها. المادّة: السيرة المصوّرة.</div></div></div>
+  </div>
+  <p class="note" style="margin-top:18px"><strong>وكلّ مرحلة التحاقٌ مستقلّ تختاره الأسرة.</strong> لا امتداد تلقائيّ ولا مسار إجباريّ. وكثيرٌ من الأسر تكتفي بالأولى — وهذا خيارٌ مشروع نحترمه ولا نسعى إلى تجاوزه.</p>
+ </div>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-t="لماذا النصّ الكلاسيكيّ">
+ <div class="inner">
+  <div class="eyebrow">المرحلة الثالثة · إيضاح</div>
+  <h2>النصّ المرجعيّ يعمل بوصفه <em>المدوّنة</em></h2>
+  <p>استظهار نصٍّ مشكول <strong>يرسّخ الإملاء والصرف والإيقاع ترسيخاً لا يبلغه تمرين</strong> — وهذه حقيقةٌ لغويّة قبل أن تكون شيئاً آخر، ويعرفها التقليد التربويّ الأوروبيّ نفسه في استظهار الشعر والنصوص الكلاسيكيّة.</p>
+  <blockquote>كما تُعلَّم اللاتينيّة على نصوصها الكلاسيكيّة: اختيار المادّة لغويٌّ في أصله، والقيمة تأتي معه لا بدلاً منه.</blockquote>
+  <div class="rule"></div>
+  <h3>وخيطٌ يمشي من اليوم الأوّل</h3>
+  <p><strong>كتاب السيرة المصوَّر بالإنجليزيّة لا ينتظر المراحل.</strong> الطفل يقرؤه بلغته ومصوَّراً قبل أن يقرأ العربيّة أصلاً — فهو خيطٌ موازٍ يمشي مع المسار كلّه منذ يومه الأوّل، لا محطّةً في نهايته.</p>
+  <figure>
+   <img src="images/06-sira.png" alt="كتاب السيرة المصوّر">
+   <div class="ph">صورة كتاب السيرة المصوَّر · <span dir="ltr">images/06-sira.png</span></div>
+  </figure>
+ </div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-t="تفاصيل المرحلة الأولى">
+ <div class="inner">
+  <div class="eyebrow">المرحلة الأولى · التفاصيل</div>
+  <h2>ما الذي تلتزم به الأسرة بالضبط</h2>
+  <div class="stats">
+   <div class="stat"><b>٦٠</b><span>دقيقة للحصّة</span></div>
+   <div class="stat"><b>٣</b><span>حصص أسبوعيّاً</span></div>
+   <div class="stat"><b>١٢</b><span>أسبوعاً</span></div>
+   <div class="stat"><b>٣–٥</b><span>أطفال بالمجموعة</span></div>
+  </div>
+  <div class="rows" style="margin-top:22px">
+   <div class="row"><div class="lbl">المدّة الكلّيّة</div><div class="val"><strong>٣٦ ساعة</strong> — ٣٦ حصّة × ٦٠ دقيقة، بثلاثٍ أسبوعيّاً على اثني عشر أسبوعاً</div></div>
+   <div class="row"><div class="lbl">الحصّة</div><div class="val">حيّة ومباشرة مع معلّم — لا مادّة مسجَّلة</div></div>
+   <div class="row"><div class="lbl">المكان</div><div class="val">أونلاين — من البيت. <span class="note">وحيث يكون التدريس حضوريّاً، فَفي مكان تجمّعٍ قانونيّ لا في بيتٍ خاصّ.</span></div></div>
+   <div class="row"><div class="lbl">المجموعة</div><div class="val">٣–٥ أطفال، أو حصّة فرديّة عند الحاجة</div></div>
+   <div class="row"><div class="lbl">لغات التدريس</div><div class="val">حسب الاتفاق</div></div>
+   <div class="row"><div class="lbl">الفئة العمريّة</div><div class="val">حسب الاتفاق</div></div>
+   <div class="row"><div class="lbl">المرجعيّة المعياريّة</div><div class="val">نعمل على ربط مستويات المسار بالإطار المرجعيّ الأوروبيّ المشترك للّغات (CEFR)</div></div>
+  </div>
+  <div class="rule"></div>
+  <p><strong>ولماذا أونلاين؟</strong> ليس لأنّه أرخص، بل لأنّه الطريقة الوحيدة لإعطاء طفلٍ في مدينةٍ صغيرة معلّماً يتكلّم لغته ويتقن العربيّة معاً. هذا المعلّم قد لا يوجد في مدينته ولا في إقليمه كلّه. <strong>الأونلاين هنا ليس تنازلاً عن الحضور، بل هو ما يجعل البرنامج ممكناً أصلاً.</strong></p>
+ </div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-t="التقييم">
+ <div class="inner">
+  <div class="eyebrow">القياس</div>
+  <h2>كيف نعرف أنّ الطفل <em>تقدّم</em></h2>
+  <div class="rows">
+   <div class="row"><div class="lbl">عند الدخول</div><div class="val">تقييمٌ يحدّد نقطة البداية بدقّة، فلا يُوضع طفلٌ يعرف الحروف مع طفلٍ يبدأ من الصفر — كلاهما يخسر في هذه الحالة.</div></div>
+   <div class="row"><div class="lbl">أثناء البرنامج</div><div class="val">بعد <strong>كلّ حصّة</strong> يصل وليَّ الأمر تقريرٌ عن ابنه: ماذا تناولت الحصّة، وكيف كانت مشاركته، وأين تقدّم، وما المطلوب قبل الحصّة القادمة. بعد كلّ حصّة — لا كلّ شهر، ولا عند نهاية البرنامج.</div></div>
+   <div class="row"><div class="lbl">عند الانتقال</div><div class="val">ثلاثة عناصر معاً: <strong>اختبارٌ</strong> يقيس المهارة، و<strong>تسجيلٌ مرئيّ</strong> لأداء الطفل يوثّق حالته، و<strong>تقييمٌ مكتوب</strong> من المعلّم. تُراجَع الثلاثة قبل قرار الانتقال، فلا يُرفَّع طفلٌ لمجرّد أنّ الوقت انقضى.</div></div>
+   <div class="row"><div class="lbl">عند الختام</div><div class="val">تقريرٌ نهائيّ يقابل بين نقطة البداية ونقطة النهاية.</div></div>
+  </div>
+ </div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-t="من يدرّس أبناءكم">
+ <div class="inner">
+  <div class="eyebrow">القسم الثاني · المعلّم</div>
+  <h2>من يدرّس أبناءكم</h2>
+  <p class="lead">نعلم أنّ هذا أوّل سؤالٍ في ذهن أيّ أبٍ وأيّ جهةٍ مسؤولة، ونضعه قبل الحديث عن المنهج والتقنيّة.</p>
+  <h3 style="margin-top:22px">شروط الاختيار</h3>
+  <ul class="tick">
+   <li><b>إتقان العربيّة</b> تأسيساً وتلاوةً</li>
+   <li><b>إتقان لغة الطفل</b> إلى حدّ الشرح والتعليم، لا مجرّد التفاهم</li>
+   <li><b>خبرة في التعامل مع الأطفال</b> في هذه الفئة العمريّة</li>
+   <li><b>جاهزيّة تقنيّة</b> للتدريس عن بُعد</li>
+   <li><b>فحص خلفيّة جنائيّة</b> بحسب متطلّبات كلّ بلدٍ يعمل فيه المعلّم</li>
+  </ul>
+ </div>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-t="التدريب والإشراف">
+ <div class="inner">
+  <div class="eyebrow">القسم الثاني · المعلّم</div>
+  <h2>التدريب — <em>ولا يُترك المعلّم بعده</em></h2>
+  <p>لا يُسمح لمعلّمٍ بالتدريس قبل أن يجتاز تدريباً على <strong>المنهج نفسه</strong>: تسلسله، وأهدافه، والأخطاء الشائعة عند كلّ درسٍ وكيف تُعالَج. <strong>ولكلّ درسٍ دليلُ معلّم</strong> — وهذا ما يجعل خمسين معلّماً يدرّسون البرنامج نفسه بالجودة نفسها، وهو الفرق بين منهجٍ ومجرّد كتاب.</p>
+  <p>ويشمل التدريب <strong>قواعد التعامل مع الطفل</strong>: الحدود، وطريقة التصحيح، وما يُقال وما لا يُقال، وكيفيّة التصعيد عند أيّ ملاحظةٍ تخصّ سلامة طفل.</p>
+  <div class="rule"></div>
+  <h3>الإشراف المستمرّ</h3>
+  <div class="g g3" style="margin-top:12px">
+   <div class="item"><p><strong>تقارير حصصه تُقرأ</strong></p></div>
+   <div class="item"><p><strong>تسجيلات من حصصه تُراجَع بالعيّنة</strong></p></div>
+   <div class="item"><p><strong>أداء أطفاله في تقييمات الانتقال يُقاس</strong></p></div>
+  </div>
+  <p style="margin-top:16px">فإن تعثّرت مجموعةٌ ظهر ذلك في أسبوعين لا في نهاية الفصل. <strong>وقواعد السلوك ليست توصياتٍ بل شروط عمل</strong> — ومخالفتها تعني إيقاف المعلّم فوراً عن التدريس ريثما يُنظر في الأمر.</p>
+ </div>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-t="من نحن">
+ <div class="inner">
+  <div class="eyebrow">القسم الثالث · المنهج وتطويره</div>
+  <h2>نحن نشغّل <em>مدرسةً أونلاين</em> — والمنهج مكوّنٌ فيها لا هويّةٌ لها</h2>
+  <p class="lead">هذا تمييزٌ جوهريّ يحدّد كلّ ما بعده.</p>
+  <p>نحن لسنا موزّعاً لمنهجٍ واحد، بل جهةٌ تبني وتشغّل <strong>بيئةً تعليميّة كاملة</strong> — المعلّم المؤهَّل، والمجموعة الصغيرة، والجدول المنتظم، والتقييم، والتقرير للأسرة، وضوابط الحماية — <strong>ثمّ تُدخل فيها منهجاً يستوفي معاييرها</strong>.</p>
+  <div class="callout">
+   <h3>والتنوّع قاعدة مؤسِّسة</h3>
+   <p>نعتمد أكثر من منهجٍ وأكثر من أسلوب: منهجٌ يناسب طفلاً في السابعة قد لا يناسب فتىً في الثانية عشرة؛ وأسلوبٌ ينجح مع من يسمع العربيّة في بيته قد لا ينجح مع من لا يسمعها.</p>
+   <p style="margin-top:10px"><strong>والمنهج المعروض هنا أحد المناهج المعتمدة لدينا</strong> — وهو الأنضج والأكثر تجريباً في مساره — ونوسّع الخيارات بما يخدم الطفل، لا بما يخدم ارتباطاً بجهةٍ بعينها.</p>
+  </div>
+ </div>
+</section>
+
+<!-- 15 -->
+<section class="slide" data-t="معايير اعتماد المنهج">
+ <div class="inner">
+  <div class="eyebrow">القسم الثالث · المنهج وتطويره</div>
+  <h2>لا نتبنّى منهجاً لأنّه متاح — <em>بل لأنّه يستوفي سبعة</em></h2>
+  <ol class="num">
+   <li><strong>مخرَجٌ محدَّد وقابل للقياس</strong> — لا أهداف عامّة مفتوحة.</li>
+   <li><strong>تدرّجٌ مبنيّ</strong>، تُثبَّت فيه كلّ خطوةٍ قبل البناء عليها.</li>
+   <li><strong>دليل معلّم لكلّ درس</strong> — وإلّا فالجودة رهنُ اجتهادٍ فرديّ.</li>
+   <li><strong>قابليّة التوطين</strong> إلى لغة الطفل، لا الترجمة الحرفيّة.</li>
+   <li><strong>مادّة مفتوحة للمراجعة</strong> — كلّ نصٍّ متاحٌ ومترجَم.</li>
+   <li><strong>انسجامٌ مع القيم المدنيّة</strong>.</li>
+   <li><strong>تجريبٌ ميدانيّ سابق</strong> أو قبولٌ بالتجريب المحدود قبل التعميم.</li>
+  </ol>
+  <p style="margin-top:18px"><strong>وهذه المعايير تسري على كلّ منهج، بما فيه ما نعمل به اليوم.</strong> والنظام مبنيّ على هذا الأساس: المنهج فيه كيانٌ قائمٌ بذاته، والمجموعة تُسنَد إلى منهجٍ محدّد — فإضافة منهجٍ ثانٍ <strong>إعدادٌ لا إعادةُ بناء</strong>.</p>
+ </div>
+</section>
+
+<!-- 16 -->
+<section class="slide" data-t="المنهج المعتمد اليوم">
+ <div class="inner">
+  <div class="eyebrow">القسم الثالث · المنهج وتطويره</div>
+  <h2>المنهج المعتمد اليوم — <em>مكتوبٌ ومطبوعٌ ومجرَّبٌ ميدانيّاً</em></h2>
+  <p>لا مسوّدة ولا فكرة. بُني وجُرِّب في تجمّعاتٍ تعليميّة حقيقيّة، وعُدّل مرّاتٍ على ما كشفه الفصل لا على ما بدا حسناً على الورق.</p>
+  <div class="g g2" style="margin-top:18px">
+   <div class="item"><h3>مصاغٌ بلغةٍ عصريّة قريبة من الطفل</h3><p>لا بأسلوب المتون التقليديّة. الأمثلة والصور والمواقف مأخوذةٌ من عالمٍ يعرفه طفلٌ يعيش اليوم.</p></div>
+   <div class="item"><h3>متدرّجٌ بخطواتٍ صغيرة مقصودة</h3><p>كلّ درسٍ يضيف عنصراً واحداً ويثبّته قبل أن يُبنى عليه. لا قفزاتٍ تترك الضعيف خلفها.</p></div>
+   <div class="item"><h3>قائمٌ على الممارسة لا الشرح</h3><p>نسبة زمن الطفل الفاعل إلى زمن المعلّم المتكلّم مرتفعةٌ عمداً.</p></div>
+   <div class="item"><h3>ومعه كتاب السيرة بالإنجليزيّة</h3><p>بأسلوب القصص المصوّرة — عملٌ بصريّ متقن يقدّم السيرة قصّةً تُقرأ لا درساً يُلقَّن، وهو مادّةٌ قرائيّة وأخلاقيّة في آن.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- 17 -->
+<section class="slide" data-t="رؤية التطوير">
+ <div class="inner">
+  <div class="eyebrow">أكبر استثمارٍ مخطَّط</div>
+  <h2>من كتابٍ إلى <em>تجربةٍ تعليميّة كاملة</em></h2>
+  <p>المنهج المكتوب أساسٌ متين، لكنّه اليوم متاحٌ بصورةٍ واحدة: صفحةٌ يقرؤها الطفل ومعلّمٌ يشرحها. ونحن نعمل على تحويله إلى تجربةٍ متعدّدة الأشكال — لأنّ الأطفال لا يتعلّمون بطريقةٍ واحدة، ولأنّ ما بين الحصص متروكٌ اليوم بلا مادّة.</p>
+  <div class="g g3" style="margin-top:18px">
+   <div class="item"><h3>١ · الفيديو التعليميّ</h3><p>مقطعٌ قصير لكلّ درس — ليس تسجيلاً لحصّة. الكتابة تُرسَم أمام العين، والنطق يُبطَّأ، والفرق بين حرفين متشابهين <strong>يُرى لا يُوصف</strong>. يستعدّ به قبل الحصّة، ويراجع بعدها، <strong>ويلحق به من غاب</strong>.</p></div>
+   <div class="item"><h3>٢ · الأنيميشن</h3><p>لما يقاوم الشرح اللفظيّ: كيف يتغيّر شكل الحرف بحسب موضعه؟ ولماذا تمدّ هذه الحركة الصوت؟ أمورٌ تُرى فتُفهَم في ثوانٍ. <strong>أداة توضيحٍ لا زينة.</strong></p></div>
+   <div class="item"><h3>٣ · الوسائل التفاعليّة</h3><p>تمارين قصيرة بين الحصص بتغذيةٍ راجعة فوريّة. والأثر مضاعف: <strong>الطفل يمارس، والمعلّم يعرف أين تعثّر قبل أن تبدأ الحصّة.</strong></p></div>
+   <div class="item"><h3>٤ · الألعاب التعليميّة</h3><p>حيث تخدم هدفاً تعليميّاً محدّداً لا لتزيين البرنامج. <strong>اللعبة تخدم الدرس ولا تحلّ محلّه</strong> — الحصّة الحيّة هي القلب، والوسائط تحيط بها.</p></div>
+   <div class="item"><h3>٥ · التوطين لا الترجمة</h3><p>الأمثلة من محيط الطفل، والمقارنات الصوتيّة على لغته هو. <strong>نسخةٌ لكلّ لغة تدريس، لا نسخةٌ واحدة مترجمة إليها.</strong></p></div>
+   <div class="item"><h3>٦ · دليل المعلّم</h3><p>لكلّ درسٍ دليلٌ يبيّن هدفه، والأخطاء الشائعة عنده، وكيف يُعالَج كلٌّ منها، وما الذي يُصحَّح فوراً وما يُترك لحينه.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- 18 -->
+<section class="slide" data-t="الأطفال شركاء">
+ <div class="inner">
+  <div class="eyebrow">مبدأ في التطوير</div>
+  <h2>الأطفال شركاء في التطوير — <em>لا متلقّون له</em></h2>
+  <p class="lead">الطفل الذي يشارك في صنع المادّة يتعلّم منها أكثر ممّا يتعلّم من مادّةٍ صُنعت له.</p>
+  <p><strong>مثالٌ يوضّح الفكرة:</strong> عند تحويل قصص المنهج إلى أفلامٍ ثلاثيّة الأبعاد، تُطرح على الأطفال مسابقةٌ لتخيّل شخصيّةٍ من القصّة وفق مواصفاتٍ محدّدة، ثمّ يُبنى العمل النهائيّ على التصوّر الفائز بتطويرٍ احترافيّ — فيرى الطفل شخصيّةً تخيّلها هو تتحرّك على الشاشة.</p>
+  <div class="g g3" style="margin-top:14px">
+   <div class="item"><h3>تربويّاً</h3><p>ينتقل الطفل من متلقٍّ إلى صانع، وهذا وحده يغيّر علاقته بالبرنامج كلّه.</p></div>
+   <div class="item"><h3>تعليميّاً</h3><p>لكي يتخيّل الشخصيّة عليه أن يفهم القصّة فهماً دقيقاً. <strong>فالمسابقة تمرين قراءةٍ متنكّرٌ في هيئة لعبة.</strong></p></div>
+   <div class="item"><h3>تطويريّاً</h3><p>نرى ما يفهمه الأطفال وما يسيئون فهمه ممّا يرسمون ويكتبون — <strong>تغذيةٌ راجعة لا يعطيها اختبار</strong>.</p></div>
+  </div>
+  <div class="callout">
+   <h3>والضوابط جزءٌ من التصميم لا استدراكٌ عليه</h3>
+   <ul class="tick" style="margin-top:12px">
+    <li><b>موافقة وليّ الأمر مكتوبة قبل أيّ مشاركة</b> — محدّدة الغرض والمدّة، وقابلة للسحب في أيّ وقت.</li>
+    <li><b>لا مسابقة بفائزٍ واحد ومئة خاسر</b> — كلّ مشاركةٍ تُعرَض، وكلّ اسمٍ يُذكر. المشاركة نفسها هي الجائزة.</li>
+    <li><b>لا تُنشر صورة طفلٍ ولا اسمه الكامل</b> إلّا بإذنٍ منفصلٍ وصريح.</li>
+    <li><b>لكلّ مسابقةٍ هدفٌ تعليميّ مكتوبٌ قبل إعلانها</b> — وإلّا فلا تُقام. المسابقة أداةٌ تعليميّة لا حملة تسويق.</li>
+   </ul>
+   <p class="note" style="margin-top:12px">وهذا اتجاهٌ نتبنّاه، وتفاصيله تُصمَّم بالتشاور معكم — ونرحّب بأن تشاركوا في وضع ضوابطه.</p>
+  </div>
+ </div>
+</section>
+
+<!-- 19 -->
+<section class="slide" data-t="منهجيّة التطوير">
+ <div class="inner">
+  <div class="eyebrow">كيف نطوّر</div>
+  <h2>دورة تطويرٍ من <em>ستّ خطوات</em></h2>
+  <p><strong>من يطوّر:</strong> فريق تأليفٍ متخصّص لكلّ منهجٍ معتمد، يعمل وفق معايير الاعتماد، وتحت <strong>إشرافٍ تربويّ متوافقٍ مع المعايير والمبادئ التربويّة المتّفق عليها والمعتمدة رسميّاً في بلد التطبيق</strong>.</p>
+  <ol class="num" style="margin-top:16px">
+   <li><strong>تحديد الحاجة من الفصل</strong> — أيّ درسٍ يتعثّر عنده الأطفال أكثر؟ <strong>البيانات تسبق القرار</strong>: تقارير الحصص وأداء التقييمات تكشف مواضع التعثّر قبل أن يشعر بها أحد، ويُضاف إليها ما تكشفه مشاركات الأطفال أنفسهم.</li>
+   <li><strong>التصميم التربويّ قبل الإنتاج</strong> — يُكتب الهدف ومعيار النجاح أوّلاً ثمّ يُصمَّم الشكل. لا نُنتج مادّةً جميلة ثمّ نبحث لها عن هدف.</li>
+   <li><strong>الإنتاج.</strong></li>
+   <li><strong>المراجعة على ثلاث عيون</strong> — تربويّة: هل تحقّق الهدف؟ · لغويّة: هل النصّ سليم؟ · <strong>وثقافيّة: هل تناسب طفلاً يعيش في أوروبا؟</strong></li>
+   <li><strong>التجريب على مجموعةٍ محدودة</strong> قبل التعميم.</li>
+   <li><strong>القياس والتعديل.</strong></li>
+  </ol>
+  <p style="margin-top:16px"><strong>والمنهج وثيقةٌ حيّة لا نصٌّ نهائيّ</strong>؛ يُراجَع دوريّاً على ما يكشفه الواقع.</p>
+ </div>
+</section>
+
+<!-- 20 -->
+<section class="slide" data-t="خارطة الإصدارات">
+ <div class="inner">
+  <div class="eyebrow">التسلسل</div>
+  <h2>خارطة الإصدارات</h2>
+  <div class="rows">
+   <div class="row"><div class="lbl">المرحلة الأولى</div><div class="val">المنهج المكتوب + دليل المعلّم + الوسائل الأساسيّة <span class="note">(قائمة اليوم)</span></div></div>
+   <div class="row"><div class="lbl">المرحلة الثانية</div><div class="val">الفيديو التعليميّ للمستوى الأوّل — بلغات التدريس</div></div>
+   <div class="row"><div class="lbl">المرحلة الثالثة</div><div class="val">الأنيميشن للمفاهيم التي تقاوم الشرح + الوسائل التفاعليّة</div></div>
+   <div class="row"><div class="lbl">المرحلة الرابعة</div><div class="val">استكمال الوسائط لبقيّة المستويات + الألعاب التعليميّة</div></div>
+  </div>
+  <p class="note" style="margin-top:14px">والجدول الزمنيّ التفصيليّ يُشارَك عند الاتفاق.</p>
+ </div>
+</section>
+
+<!-- 21 -->
+<section class="slide" data-t="الشفافيّة في المادّة">
+ <div class="inner">
+  <div class="eyebrow">التزام</div>
+  <h2>كلّ نصٍّ يُقرأ في الحصّة <em>متاحٌ كاملاً ومترجَماً</em></h2>
+  <p class="lead">لأيّ جهةٍ شريكة أو رقابيّة، ولوليّ الأمر — عند الطلب. لا مادّةٌ مغلقة، ولا نصٌّ لا نقبل أن يُقرأ، ولا محتوى بلغةٍ لا يفهمها الشريك.</p>
+  <p>نذكر هذا صراحةً لأنّنا نعلم أنّه السؤال الذي <strong>يستحقّ</strong> أن يُطرح على أيّ برنامجٍ يتعامل مع أطفال.</p>
+  <blockquote>ومن يطلب الثقة عليه أن يقدّم ما يُتحقَّق منه، لا أن يطلب التصديق.</blockquote>
+  <div class="callout" style="margin-top:22px">
+   <p><strong>البرنامج في بنيته برنامج قراءة، ومدوّنته نصوصٌ كلاسيكيّة، ومكوّنه القيميّ معلنٌ ومكتوب. ونقبل أن يُتحقَّق من ذلك بحضور أيّ حصّة.</strong></p>
+  </div>
+ </div>
+</section>
+
+<!-- 22 -->
+<section class="slide" data-t="لماذا القيم">
+ <div class="inner">
+  <div class="eyebrow">القسم الرابع · القيم والمبادئ</div>
+  <h2>مرجعيّة هذه القيم إسلاميّة. <em>نقولها ولا نخفيها</em></h2>
+  <p>منهاج لا يعلّم القراءة فحسب. الأسرة التي تسجّل ابنها لا تطلب مهارةً تقنيّة مجرّدة؛ تريد أن يصل ابنها إلى نصٍّ يحمل معنى، وأن يكبر على أخلاقٍ تعتزّ بها. وقد اخترنا أن نكون صريحين في هذا بدل أن نخفيه خلف عباراتٍ محايدة.</p>
+  <div class="g g2" style="margin-top:18px">
+   <div class="item"><h3>السبب الأوّل</h3><p>أنّها الحقيقة، والغموض في وصف ما يُقدَّم لطفلٍ <strong>يستحقّ</strong> أن يُقرأ إخفاءً.</p></div>
+   <div class="item"><h3>السبب الثاني</h3><p>أنّ الوضوح شرط الشراكة: الجهة التي تعرف بالضبط ما يُقدَّم لأبناء مجتمعها تستطيع أن تقرّر عن علم — وهذا أفضل لنا ولها من قبولٍ مبنيٍّ على غموضٍ ينكشف بعد سنة.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- 23 -->
+<section class="slide" data-t="القيم المستهدَفة">
+ <div class="inner">
+  <div class="eyebrow">القسم الرابع · القيم والمبادئ</div>
+  <h2>القيم المستهدَفة — <em>وكيف تظهر عمليّاً</em></h2>
+  <div class="rows">
+   <div class="row"><div class="lbl">الصدق</div><div class="val">يُسأل الطفل عن واجبه فيُقال له إنّ «لم أفعله» جوابٌ مقبول، وإنّ ادّعاء الإنجاز هو وحده غير المقبول</div></div>
+   <div class="row"><div class="lbl">الأمانة</div><div class="val">التقييم بلا مساعدةٍ خفيّة؛ والطفل يقرأ ما يقرأ لا ما حفظ</div></div>
+   <div class="row"><div class="lbl">برّ الوالدين واحترام الكبير</div><div class="val">حاضرٌ في نصوص القراءة وفي طريقة مخاطبة المعلّم</div></div>
+   <div class="row"><div class="lbl">الرحمة بالصغير والضعيف</div><div class="val">في مجموعةٍ متفاوتة المستوى لا يُسخر من متعثّر — قاعدة صفّيّة معلنة</div></div>
+   <div class="row"><div class="lbl">الإتقان</div><div class="val">«أعِد قراءتها صحيحة» بدل «يكفي، مرّرها»</div></div>
+   <div class="row"><div class="lbl">الوفاء بالوعد · المسؤوليّة</div><div class="val">المواظبة التزامٌ يُذكَّر به الطفل بلطف، وهو مسؤولٌ عن استعداده بقدر سنّه</div></div>
+   <div class="row"><div class="lbl">حسن الخلق مع المخالف</div><div class="val">تُدرَّس قيمةً أصيلة لا استثناءً: من يخالفك يُخاطَب بالحسنى، <strong>وهذا من دينك لا رغماً عنك</strong></div></div>
+   <div class="row"><div class="lbl">النظام · حبّ العلم والمثابرة</div><div class="val">الحضور في الموعد والاستعداد قبل الحصّة، والمعنى الجامع لما سبق</div></div>
+  </div>
+ </div>
+</section>
+
+<!-- 24 -->
+<section class="slide" data-t="كيف تُنقل القيم">
+ <div class="inner">
+  <div class="eyebrow">القسم الرابع · القيم والمبادئ</div>
+  <h2>ثلاث قنوات — <em>ولا درسٌ منفصل</em></h2>
+  <p class="lead">لا حصّة في برنامجنا اسمها «حصّة القيم». القيمة التي تُلقَّن وعظاً تُنسى، والتي تُمارَس تبقى.</p>
+  <div class="g g3" style="margin-top:18px">
+   <div class="item"><h3>(أ) نصوص القراءة</h3><p>الطفل يتعلّم الحرف على نصّ، والنصّ يحمل معنى. واختيارها مقصود: يتدرّب على القراءة وهو يقرأ ما يستحقّ أن يُقرأ.</p></div>
+   <div class="item"><h3>(ب) كتاب السيرة المصوَّر</h3><p>السيرة <strong>قصّةً لا وعظاً</strong>: الطفل يتابع الحكاية، والقيمة تصله عبر المشهد لا عبر التوجيه المباشر.</p></div>
+   <div class="item"><h3>(ج) قواعد الحصّة وسلوك المعلّم — وهذه أقواها</h3><p>يتعلّم احترام الدور من انتظاره دورَه، والصدق من معلّمٍ يقول «لا أعرف، سأتحقّق»، والرحمة من فصلٍ لا يُسخر فيه من متعثّر. <strong>ما يُمارَس أبلغ ممّا يُقال.</strong></p></div>
+  </div>
+ </div>
+</section>
+
+<!-- 25 -->
+<section class="slide" data-t="القيم المدنيّة">
+ <div class="inner">
+  <div class="eyebrow">الانسجام</div>
+  <h2>وانسجامها مع <em>القيم المدنيّة</em></h2>
+  <p>نعرف أنّ برنامجاً تربويّاً يُقدَّم لأطفالٍ في أوروبا يُقاس بالقيم الأساسيّة للدولة الديمقراطيّة القائمة على سيادة القانون، ونقدّم المقابلة صراحةً:</p>
+  <div class="rows" style="margin-top:14px">
+   <div class="row"><div class="lbl">الحرّية <span dir="ltr" class="note">(vrijheid)</span></div><div class="val">الطفل يَسأل ويخطئ بلا تعنيف، والمعلّم يشرح ولا يُملي. <strong>والسؤال في فصولنا مطلوبٌ لا محتمَل.</strong></div></div>
+   <div class="row"><div class="lbl">التكافؤ <span dir="ltr" class="note">(gelijkwaardigheid)</span></div><div class="val"><strong>«حسن الخلق مع المخالف» قيمةٌ في قائمتنا المعلنة</strong>، لا استثناءً يُذكر عند الحاجة. ولا مادّة في برنامجنا تُقصي أحداً أو تنتقص منه.</div></div>
+   <div class="row"><div class="lbl">التضامن <span dir="ltr" class="note">(solidariteit)</span></div><div class="val">الرحمة، والمسؤوليّة، وبرّ الوالدين، والعمل في مجموعةٍ صغيرة يتعاون أفرادها ويُعين قويُّها ضعيفَها.</div></div>
+  </div>
+  <div class="callout">
+   <p><strong>وموقفنا من التعليم الهولنديّ صريح: برنامجنا مكمّلٌ لا بديل.</strong> يجري خارج أوقات المدرسة، ولا يزاحم مقرّراتها، ولا يقدّم نفسه بديلاً عنها. <strong>الطفل الذي نعلّمه تلميذٌ في مدرسته الهولنديّة أوّلاً</strong> — ونحن نضيف إليه مهارةً لغويّة، ولا ننزعه من محيطه.</p>
+  </div>
+ </div>
+</section>
+
+<!-- 26 -->
+<section class="slide" data-t="لماذا منصّة خاصّة">
+ <div class="inner">
+  <div class="eyebrow">القسم الخامس · المنصّة</div>
+  <h2>كان أمامنا أن نستعمل أدواتٍ جاهزة — <em>ورفضنا</em></h2>
+  <p>منصّة اجتماعات، وجدولٌ في ورقة، ومجموعة مراسلة. رفضنا ذلك لأنّ ما يميّز برنامجاً يعمل مع أطفالٍ عن بُعد ليس جودة الفيديو، بل <strong>ما يستطيع أن يضمنه للأهل وللجهة الشريكة</strong>.</p>
+  <p>فبنينا نظاماً خاصّاً بنا، وجعلنا <strong>ضوابط الحماية والشفافيّة مبنيّةً في تصميمه</strong> لا مكتوبةً في سياسةٍ تُوقَّع ثمّ تُنسى.</p>
+  <blockquote>والفرق بين النوعين أنّ السياسة تُخالَف، والتصميم لا يُخالَف.</blockquote>
+  <figure>
+   <img src="images/07-platform.png" alt="واجهة المنصّة">
+   <div class="ph">صورة المنصّة · <span dir="ltr">images/07-platform.png</span></div>
+  </figure>
+ </div>
+</section>
+
+<!-- 27 -->
+<section class="slide" data-t="رحلة الطفل">
+ <div class="inner">
+  <div class="eyebrow">القسم الخامس · المنصّة</div>
+  <h2>رحلة الطفل داخل النظام</h2>
+  <div class="stages">
+   <div class="stg"><div class="k">١</div><div><div class="t">التسجيل</div><div class="d">وليّ الأمر يسجّل وله حسابه، ويرتبط به ابنه. <strong>ولا يملك الطفل الصغير حساباً ولا كلمة مرور</strong>؛ أبوه هو من يفتح له الحصّة.</div></div></div>
+   <div class="stg"><div class="k">٢</div><div><div class="t">تحديد المستوى</div><div class="d">تقييم دخولٍ يضع الطفل في مستواه الصحيح.</div></div></div>
+   <div class="stg"><div class="k">٣</div><div><div class="t">التوزيع على مجموعة</div><div class="d">ثلاثة إلى خمسة أطفال متقاربي المستوى والعمر، يتكلّم معلّمهم لغتهم، وفي توقيتٍ يناسب أسرهم.</div></div></div>
+   <div class="stg"><div class="k">٤</div><div><div class="t">الجدول</div><div class="d">جدولٌ أسبوعيّ ثابت لاثني عشر أسبوعاً، معلومٌ من اليوم الأوّل، <strong>يُحسب بتوقيت أسرة الطفل المحلّيّ</strong> ويراعي العطل المدرسيّة.</div></div></div>
+   <div class="stg"><div class="k">٥</div><div><div class="t">الحصّة</div><div class="d">يدخلها الطفل من داخل المنصّة برابطٍ <strong>خاصٍّ به وقصير العمر</strong>، لا رابطٍ عامّ يُنسَخ ويُتداوَل.</div></div></div>
+   <div class="stg"><div class="k">٦</div><div><div class="t">الحضور والتقرير</div><div class="d">الحضور يُسجَّل لكلّ طفلٍ في كلّ حصّة، والتقرير يصل وليَّ الأمر بعد كلّ حصّة <strong>بلغته هو</strong>.</div></div></div>
+   <div class="stg"><div class="k">٧</div><div><div class="t">الانتقال</div><div class="d">اختبار، وتسجيل مرئيّ، وتقييم مكتوب.</div></div></div>
+  </div>
+ </div>
+</section>
+
+<!-- 28 -->
+<section class="slide" data-t="ضوابط الحماية">
+ <div class="inner">
+  <div class="eyebrow">القسم الخامس · المنصّة</div>
+  <h2>ضوابط الحماية — <em>مبنيّةٌ في النظام</em></h2>
+  <div class="rows">
+   <div class="row"><div class="lbl">لا تواصل خاصّاً بين معلّم وطفل أو أسرة</div><div class="val"><strong>لا يوجد في النظام خيط محادثةٍ ثنائيّ أصلاً.</strong> كلّ محادثةٍ ثلاثة أطرافٍ فأكثر، والإدارة عضوٌ في كلّ خيط. والدردشة الخاصّة داخل قاعة الحصّة <strong>مقفلةٌ على مستوى الحساب</strong> فلا يستطيع أحدٌ فتحها.</div></div>
+   <div class="row"><div class="lbl">الحضوريّ في مكانٍ معلوم</div><div class="val">حيث يكون التدريس وجهاً لوجه، يكون في <strong>مكان تجمّعٍ قانونيّ</strong> — مركزٌ أو مسجدٌ أو مدرسة — <strong>ولا يُدرَّس طفلٌ في بيتٍ خاصّ أبداً</strong>. وهو نظير قاعدة «لا خيط ثنائيّ» في الفضاء الحقيقيّ: لا لقاءَ بالغٍ بطفلٍ في مكانٍ لا يراه فيه أحد.</div></div>
+   <div class="row"><div class="lbl">لا شيء يُحذف</div><div class="val">لا حذف للرسائل — فالمحذوف هو ما يهمّ عند أيّ مراجعة.</div></div>
+   <div class="row"><div class="lbl">كلّ حصّة مسجَّلة</div><div class="val">تسجيلٌ تلقائيّ بمدّة احتفاظٍ محدّدة، ثمّ <strong>حذفٌ آليّ</strong>.</div></div>
+   <div class="row"><div class="lbl">من يشاهد التسجيل</div><div class="val">الإدارة والمعلّم صاحب الحصّة فقط. <strong>ولا يُسلَّم لوليّ أمر</strong> — لأنّه يحوي أطفال أسرٍ أخرى، وحمايتهم لا تقلّ عن حماية ابنه.</div></div>
+   <div class="row"><div class="lbl">الأهل يرون كلّ شيء</div><div class="val"><strong>لا يوجد في النظام حقل ملاحظاتٍ مخفيّ عن وليّ الأمر.</strong> وقاعدتنا الداخليّة: لا يُكتب عن طفلٍ ما لا نقبل أن يقرأه أبوه.</div></div>
+   <div class="row"><div class="lbl">الطفل ليس مستخدماً مستقلّاً</div><div class="val">لا حساب ولا كلمة مرور لطفلٍ دون السنّ.</div></div>
+   <div class="row"><div class="lbl">سجلّ تدقيق</div><div class="val">كلّ فعلٍ مسجَّل بفاعله ووقته — <strong>بما فيه من شاهد تسجيلاً ومتى</strong>.</div></div>
+   <div class="row"><div class="lbl">مكان البيانات · أقلّ ما يلزم</div><div class="val">داخل الاتحاد الأوروبيّ. ولا يُرسَل اسم الطفل ولا تقييمه في نصّ أيّ رسالةٍ خارجيّة — يصل إشعارٌ ورابطٌ إلى المنصّة.</div></div>
+  </div>
+  <p style="margin-top:16px"><strong>وهذه ليست وعوداً بل خصائص قابلة للتحقّق.</strong> وندعوكم إلى أن تختبروها بأنفسكم على حسابٍ تجريبيّ — لا أن تصدّقوها على الورق.</p>
+ </div>
+</section>
+
+<!-- 29 -->
+<section class="slide" data-t="الجودة والأسرة">
+ <div class="inner">
+  <div class="eyebrow">القسم الخامس · المنصّة</div>
+  <h2>كيف نعرف أنّ الحصّة <em>كانت جيّدة</em></h2>
+  <p>معظم البرامج لا تعرف. ونحن نعرف من أربعة مصادر:</p>
+  <div class="g g4" style="margin-top:14px">
+   <div class="item"><p><strong>تقرير المعلّم</strong> بعد كلّ حصّة</p></div>
+   <div class="item"><p><strong>سجلّ الحضور</strong> ونمطه</p></div>
+   <div class="item"><p><strong>مراجعة التسجيلات</strong> بالعيّنة</p></div>
+   <div class="item"><p><strong>أداء الأطفال</strong> في تقييمات الانتقال</p></div>
+  </div>
+  <p style="margin-top:16px">فإن تعثّرت مجموعةٌ <strong>ظهر ذلك في أسبوعين لا في نهاية الفصل</strong> — ويُعالَج بينما العلاج ممكن.</p>
+  <div class="rule"></div>
+  <h3>والأسرة شريكٌ لا متلقٍّ</h3>
+  <p>وليّ الأمر يرى جدول ابنه، وتقريراً بعد كلّ حصّة، وتقدّمه عبر المستويات، وسجلّ حضوره — بلغته هو لا بلغة المعلّم. وهذا مقصود: <strong>الطفل الذي يتابعه أبوه يُكمل، والذي لا يُتابَع ينسحب.</strong> فالتقرير المنتظم ليس إجراءً إداريّاً بل أداةٌ تعليميّة.</p>
+ </div>
+</section>
+
+<!-- 30 -->
+<section class="slide" data-t="كيف نرى الشراكة">
+ <div class="inner">
+  <div class="eyebrow">القسم السادس · التعاون مع نماء</div>
+  <h2>موقع نماء مزدوج — <em>ولا نخلط بين وجهيه</em></h2>
+  <div class="g g2">
+   <div class="item"><h3>أوّلاً · مجتمعٌ له أسره وأطفاله</h3><p>ونحن نقدّم لهم برنامجاً.</p></div>
+   <div class="item"><h3>ثانياً · جهةٌ لها ثقلها وشبكتها</h3><p>بين المدارس والمؤسّسات الدينيّة والعربيّة في هولندا — <strong>وهذه الشبكة هي الباب الذي لا يُفتح بالإعلان</strong>.</p></div>
+  </div>
+  <blockquote style="margin-top:24px">والترتيب بين الوجهين مقصود: لا نطلب من نماء أن تعرّف بما لم تجرّبه. نبدأ داخلها، فإذا اقتنعت بما رأت، صارت تتحدّث عن تجربةٍ خاضتها لا عن عرضٍ قُدِّم لها.</blockquote>
+  <figure>
+   <img src="images/08-namaa.png" alt="شبكة المؤسّسات">
+   <div class="ph">صورة الشبكة المجتمعيّة · <span dir="ltr">images/08-namaa.png</span></div>
+  </figure>
+ </div>
+</section>
+
+<!-- 31 -->
+<section class="slide" data-t="صيغ التعاون">
+ <div class="inner">
+  <div class="eyebrow">القسم السادس · التعاون مع نماء</div>
+  <h2>ستّ صيغ في <em>ثلاثة مسارات</em></h2>
+  <h3 style="color:var(--olive);margin-top:8px">المسار الداخليّ — نماء ومجتمعها</h3>
+  <div class="rows">
+   <div class="row"><div class="lbl">(أ) تشغيل حصص لأبناء نماء</div><div class="val">نوفّر المعلّمين والمنصّة والإدارة والمتابعة، وتعرّف نماء بالبرنامج على أسرها. <strong>الأسرع بدءاً والأقلّ التزاماً عليها.</strong></div></div>
+   <div class="row"><div class="lbl">(ب) تدريب معلّمين من نماء</div><div class="val">ليدرّسوا بأنفسهم — أونلاين، أو حضوريّاً <strong>في مكان تجمّعٍ قانونيّ</strong> — مع بقاء المتابعة والتقييم وضوابط الجودة على المنصّة. <strong>يبني قدرةً تبقى لنماء بعد انتهاء أيّ اتفاقٍ بيننا.</strong></div></div>
+  </div>
+  <h3 style="color:var(--olive);margin-top:22px">المسار الخارجيّ — نماء بوّابةً إلى المؤسّسات</h3>
+  <div class="rows">
+   <div class="row"><div class="lbl">(ج) التعريف والتزكية</div><div class="val">تعرّف نماء البرنامجَ على المدارس والمساجد والمراكز في شبكتها، ونتولّى نحن العرض والتشغيل والمتابعة. <strong>نماء تفتح الباب ولا تحمل عبء التشغيل.</strong></div></div>
+   <div class="row"><div class="lbl">(د) العرض المشترك</div><div class="val">نلتقي المؤسّسة معاً — نماء تقدّم البرنامج بصفتها جهةً جرّبته، ونحن نعرض التفاصيل ونجيب عن الأسئلة التقنيّة والتربويّة.</div></div>
+   <div class="row"><div class="lbl">(هـ) الإدراج في قائمةٍ معتمدة</div><div class="val">يُدرَج منهاج في قائمة البرامج التي توصي بها نماء، بعد اجتيازه <strong>معاييرَها هي — لا معاييرنا نحن</strong>.</div></div>
+  </div>
+  <h3 style="color:var(--olive);margin-top:22px">المسار الأبعد</h3>
+  <div class="rows">
+   <div class="row"><div class="lbl">(و) شراكة نحو الاعتراف</div><div class="val">نعمل معاً على ملفٍّ يُقدَّم إلى الجهة الهولنديّة المختصّة. <strong>الأطول مدى والأعلى أثراً</strong> — ويستند إلى ما تراكم في المسارين قبله من نتائج موثّقة.</div></div>
+  </div>
+  <div class="callout">
+   <p><strong>ونموذج العائد يُتّفق عليه صراحةً وكتابةً قبل أوّل إحالة.</strong> جهد نماء في فتح الأبواب عملٌ يُقدَّر ولا يُستَهلك مجّاناً، والغموض في هذا الباب يفسد الشراكات أكثر ممّا يفسدها الخلاف.</p>
+  </div>
+ </div>
+</section>
+
+<!-- 32 -->
+<section class="slide" data-t="التجربة المقترحة">
+ <div class="inner">
+  <div class="eyebrow">الخطوة المقترحة</div>
+  <h2>تجربةٌ محدودة <em>داخل نماء</em></h2>
+  <div class="rows">
+   <div class="row"><div class="lbl">الحجم</div><div class="val">عددٌ يُتّفق عليه من أطفال أسر نماء، في مجموعاتٍ من ٣–٥</div></div>
+   <div class="row"><div class="lbl">المدّة</div><div class="val">فصلٌ دراسيّ واحد — ١٢ أسبوعاً</div></div>
+   <div class="row"><div class="lbl">اللغة</div><div class="val">العربيّة عبر الهولنديّة، ولغاتٌ أخرى بحسب أسر نماء</div></div>
+   <div class="row"><div class="lbl">المقاييس</div><div class="val">نسبة من بلغوا القراءة المشكولة · نسبة الإكمال · رضا الأسر · ملاحظات نماء على المادّة والطريقة</div></div>
+   <div class="row"><div class="lbl">المخرَج</div><div class="val">تقريرٌ مشترك يُبنى عليه قرار التوسّع أو التوقّف</div></div>
+  </div>
+  <p style="margin-top:18px"><strong>ومعايير التقييم يُتّفق عليها قبل البدء لا بعده.</strong></p>
+  <blockquote style="margin-top:18px">ونقبل أن تكون النتيجة سلبيّة وأن تُنشر كما هي — فبرنامجٌ لا يحتمل هذا الشرط لا يستحقّ أن يُبنى عليه، ولا يستحقّ أن تضع نماء اسمها خلفه.</blockquote>
+  <p class="note" style="margin-top:16px"><strong>وهذا التقرير — لا هذه الوثيقة — هو ما تحمله نماء إلى المؤسّسات الأخرى.</strong></p>
+ </div>
+</section>
+
+<!-- 33 -->
+<section class="slide" data-t="ما نرجوه من نماء">
+ <div class="inner">
+  <div class="eyebrow">الطلب</div>
+  <h2>ما نرجوه من نماء</h2>
+  <p class="note" style="margin-bottom:14px">الآن:</p>
+  <ol class="num">
+   <li><strong>لقاءٌ نعرض فيه المنهج والمنصّة عمليّاً</strong> — لا شرائح عرض، بل النظام نفسه وحسابٌ تجريبيّ تختبرونه بأيديكم.</li>
+   <li><strong>مراجعةٌ نقديّة لموادّنا</strong> وملاحظاتٌ مكتوبة. نريد أن تُراجَع لا أن تُقبل مجاملةً.</li>
+   <li><strong>الاتفاق على معايير تقييم التجربة قبل بدئها</strong>، وعلى صيغة التعاون ونموذج العائد.</li>
+  </ol>
+  <p class="note" style="margin:22px 0 14px">وبعد التجربة، إن أقنعت:</p>
+  <ol class="num" style="counter-reset:n 3">
+   <li><strong>التعريف بالبرنامج</strong> في شبكة نماء من المدارس والمؤسّسات.</li>
+   <li><strong>حضورٌ معنا في أوّل اللقاءات</strong> مع تلك المؤسّسات.</li>
+  </ol>
+  <blockquote style="margin-top:24px">ولا نطلب الرابع والخامس قبل الثالث.</blockquote>
+ </div>
+</section>
+
+<!-- 34 -->
+<section class="slide" data-t="الملاحق">
+ <div class="inner">
+  <div class="eyebrow">تُسلَّم عند الطلب</div>
+  <h2>الملاحق</h2>
+  <div class="rows">
+   <div class="row"><div class="lbl">(أ)</div><div class="val">خريطة مستويات المنهج المعتمد، ومخرَج كلٍّ، ومعايير الاجتياز، <strong>وربطها بمستويات CEFR</strong></div></div>
+   <div class="row"><div class="lbl">(ب)</div><div class="val">قائمة القيم كاملةً بأمثلتها</div></div>
+   <div class="row"><div class="lbl">(ج)</div><div class="val">درسٌ كامل نموذجيّ — مترجَم</div></div>
+   <div class="row"><div class="lbl">(د)</div><div class="val">نصوص السيرة المستخدمة — مترجَمة</div></div>
+   <div class="row"><div class="lbl">(هـ)</div><div class="val">المعلّمون: المؤهّلات واللغات</div></div>
+   <div class="row"><div class="lbl">(و)</div><div class="val">سياسة حماية الطفل ومدوّنة سلوك المعلّمين</div></div>
+   <div class="row"><div class="lbl">(ز)</div><div class="val">سياسة الخصوصيّة ومعالجة بيانات القاصرين</div></div>
+   <div class="row"><div class="lbl">(ح)</div><div class="val">الكيان: الأوراق القانونيّة ومصادر التمويل</div></div>
+  </div>
+ </div>
+</section>
+
+<!-- 35 -->
+<section class="slide cover" data-t="الختام">
+ <div class="inner">
+  <div class="mark">منهاج</div>
+  <div class="for">مسار القراءة العربيّة للأطفال في أوروبا</div>
+  <h1 style="font-size:clamp(24px,4vw,44px);margin-top:34px">ومن يطلب الثقة عليه أن يقدّم <em>ما يُتحقَّق منه</em></h1>
+  <div class="rule"></div>
+  <p class="note">شكراً لوقتكم. ننتظر ملاحظاتكم المكتوبة، ولقاءً نعرض فيه النظام نفسه.</p>
+ </div>
+</section>
+
+</div>
+
+<div id="idx" role="dialog" aria-label="فهرس الشرائح">
+ <h3>الفهرس</h3>
+ <ol id="idxList"></ol>
+</div>
+
+<div id="bar"><i></i></div>
+<div id="nav">
+ <button id="prev" aria-label="السابق">→ السابق</button>
+ <div id="count"></div>
+ <button id="next" aria-label="التالي">التالي ←</button>
+</div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var bar=document.querySelector('#bar i'), count=document.getElementById('count');
+  var idx=document.getElementById('idx'), list=document.getElementById('idxList');
+  var i=0, N=slides.length;
+
+  slides.forEach(function(s,n){
+    var li=document.createElement('li');
+    li.textContent=s.dataset.t||('شريحة '+(n+1));
+    li.tabIndex=0;
+    li.addEventListener('click',function(){go(n);closeIdx();});
+    li.addEventListener('keydown',function(e){if(e.key==='Enter'){go(n);closeIdx();}});
+    list.appendChild(li);
+  });
+
+  function ar(n){return String(n).replace(/[0-9]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'[+d];});}
+  function go(n){
+    i=Math.max(0,Math.min(N-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('on',k===i);});
+    slides[i].scrollTop=0;
+    bar.style.width=((i+1)/N*100)+'%';
+    count.textContent=ar(i+1)+' / '+ar(N);
+    if(location.hash!=='#'+(i+1)) history.replaceState(null,'','#'+(i+1));
+  }
+  function next(){go(i+1);} function prev(){go(i-1);}
+  function closeIdx(){idx.classList.remove('on');}
+
+  document.getElementById('next').addEventListener('click',next);
+  document.getElementById('prev').addEventListener('click',prev);
+  document.getElementById('idxBtn').addEventListener('click',function(){idx.classList.toggle('on');});
+  idx.addEventListener('click',function(e){if(e.target===idx)closeIdx();});
+
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){closeIdx();return;}
+    if(e.key==='ArrowLeft'||e.key===' '||e.key==='PageDown'){e.preventDefault();next();}
+    else if(e.key==='ArrowRight'||e.key==='PageUp'){e.preventDefault();prev();}
+    else if(e.key==='Home'){go(0);} else if(e.key==='End'){go(N-1);}
+    else if(e.key==='o'||e.key==='O'){idx.classList.toggle('on');}
+  });
+
+  var x0=null,y0=null;
+  document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(x0===null)return;
+    var dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0;
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.6){ dx<0?next():prev(); }
+    x0=null;
+  },{passive:true});
+
+  // hide image frames that fail to load, keep the labelled placeholder
+  [].forEach.call(document.images,function(img){
+    img.addEventListener('error',function(){img.setAttribute('data-missing','1');});
+    img.addEventListener('load',function(){
+      var ph=img.parentNode.querySelector('.ph'); if(ph) ph.style.display='none';
+    });
+    if(img.complete&&img.naturalWidth===0) img.setAttribute('data-missing','1');
+  });
+
+  var start=parseInt((location.hash||'').replace('#',''),10);
+  go(isNaN(start)?0:start-1);
+})();
+</script>
+</body>
+</html>
