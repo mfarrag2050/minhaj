@@ -10,6 +10,7 @@
 :root{
   --paper:#F4F4EF; --ink:#16211B; --ink2:#3A473F; --muted:#6C7469;
   --olive:#4A6B4F; --ochre:#A8752E; --rule:#DCDBD1; --card:#EAE9E1;
+  --dk-bg:#131C17; --dk-fg:#F2F2EC; --dk-dim:#93A096; --dk-acc:#C99552;
   --sans:"Noto Kufi Arabic",system-ui,sans-serif;
   --serif:"Noto Naskh Arabic",Georgia,serif;
 }
@@ -24,12 +25,12 @@ body{background:var(--paper);color:var(--ink);font-family:var(--serif);direction
 /* ---------- deck ---------- */
 #deck{position:relative;height:100dvh;min-height:520px}
 .slide{position:absolute;inset:0;display:none;flex-direction:column;
-  justify-content:center;padding:clamp(28px,5vw,72px) clamp(24px,7vw,110px) 92px;
+  justify-content:center;padding:clamp(28px,5vw,72px) clamp(22px,4.4vw,74px) 92px;
   overflow-y:auto;overscroll-behavior:contain}
 .slide.on{display:flex;animation:in .42s cubic-bezier(.22,.7,.3,1)}
 @keyframes in{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.slide.on{animation:none}}
-.inner{width:100%;max-width:1000px;margin:0 auto}
+.inner{width:100%;max-width:1180px;margin:0 auto}
 
 /* ---------- type ---------- */
 .eyebrow{font-family:var(--sans);font-size:clamp(11px,1.4vw,13px);font-weight:600;
@@ -84,7 +85,7 @@ strong{color:var(--ink);font-weight:700}
 .rows{border-top:1px solid var(--rule)}
 .row{display:grid;grid-template-columns:minmax(120px,1fr) 2.4fr;gap:clamp(12px,2vw,26px);
   padding:clamp(11px,1.6vw,16px) 0;border-bottom:1px solid var(--rule);align-items:baseline}
-.row .lbl{font-family:var(--sans);font-weight:600;font-size:clamp(14px,1.6vw,16px);color:var(--ink)}
+.row .lbl{font-family:var(--sans);font-weight:600;font-size:clamp(13.5px,2vh,17px);color:var(--ink)}
 .row .val{font-size:clamp(14px,1.6vw,17px);line-height:1.8;color:var(--ink2)}
 @media(max-width:700px){.row{grid-template-columns:1fr;gap:2px}}
 
@@ -176,6 +177,42 @@ figure img.fallback[data-show]{display:block}
 
 
 
+
+/* ---------- two-column tables ---------- */
+.rows.two{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(26px,3.2vw,52px);
+  border-top:0}
+.rows.two .row{border-top:1px solid var(--rule);border-bottom:0}
+@media(max-width:820px){.rows.two{grid-template-columns:1fr}}
+
+/* ---------- section dividers & cover (single visual world) ---------- */
+.slide.dark{background:var(--dk-bg);color:var(--dk-fg)}
+.slide.dark .inner{max-width:980px}
+.dnum{font-family:var(--sans);font-weight:700;color:var(--dk-acc);line-height:1;
+  font-size:clamp(40px,10vh,104px);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.dtitle{font-family:var(--sans);font-weight:700;color:var(--dk-fg);
+  font-size:clamp(30px,7.4vh,72px);line-height:1.3;margin:clamp(8px,1.8vh,20px) 0 0}
+.dsub{color:var(--dk-dim);font-size:clamp(13px,2.1vh,19px);line-height:1.9;
+  margin-top:clamp(10px,2vh,20px);max-width:56ch}
+.dline{height:1px;background:rgba(242,242,236,.16);margin:clamp(14px,2.6vh,28px) 0}
+.slide.dark .mark{font-family:var(--sans);font-weight:700;color:var(--dk-fg);
+  font-size:clamp(30px,6vh,58px);letter-spacing:.02em}
+.slide.dark .for{font-family:var(--sans);color:var(--dk-dim);
+  font-size:clamp(12px,1.9vh,16px);letter-spacing:.14em;margin-top:12px}
+.slide.dark h1{color:var(--dk-fg)}
+.slide.dark .note{color:var(--dk-dim)}
+.slide.dark .rule{background:rgba(242,242,236,.16)}
+.slide.dark .ph{border-color:rgba(242,242,236,.2);background:rgba(242,242,236,.05);color:var(--dk-dim)}
+.slide.dark figure img,.slide.dark figure video{border-color:rgba(242,242,236,.2)}
+body.on-dark{background:var(--dk-bg)}
+body.on-dark #brand,body.on-dark #sec{color:var(--dk-dim)}
+body.on-dark #idxBtn,body.on-dark #nav button{background:transparent;color:var(--dk-dim);
+  border-color:rgba(242,242,236,.25)}
+body.on-dark #count{color:var(--dk-dim)}
+body.on-dark #bar{background:rgba(242,242,236,.15)}
+#sec{position:fixed;top:35px;right:clamp(22px,4.4vw,74px);z-index:41;text-align:right;
+  font-family:var(--sans);font-size:11.5px;color:var(--muted);letter-spacing:.08em;
+  line-height:1.2;transition:color .3s;pointer-events:none}
+
 /* ---------- vocalisation reveal + harakat strip ---------- */
 .spec.anim{position:relative}
 .spec.anim .pl{position:absolute;inset:0;padding:inherit;color:var(--muted);
@@ -240,8 +277,9 @@ figure img.fallback[data-show]{display:block}
 #nav button:focus-visible,#idxBtn:focus-visible{outline:2px solid var(--ochre);outline-offset:2px}
 #count{font-family:var(--sans);font-size:12px;color:var(--muted);
   font-variant-numeric:tabular-nums;min-width:58px;text-align:center}
-#brand{position:fixed;top:16px;right:clamp(20px,7vw,110px);z-index:41;
-  font-family:var(--sans);font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.04em}
+#brand{position:fixed;top:14px;right:clamp(22px,4.4vw,74px);z-index:41;
+  font-family:var(--sans);font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.04em;
+  text-align:right;line-height:1.2;transition:color .3s}
 #idxBtn{position:fixed;top:12px;left:clamp(16px,4vw,40px);z-index:42}
 #idx{position:fixed;inset:0;background:var(--paper);z-index:60;display:none;
   overflow-y:auto;padding:64px clamp(20px,6vw,80px)}
@@ -257,11 +295,11 @@ figure img.fallback[data-show]{display:block}
 /* ---------- short viewports (projectors, laptops) ---------- */
 @media (max-height:1000px){
   .slide{padding-top:clamp(18px,3vh,38px);padding-bottom:74px}
-  h1{font-size:clamp(25px,4.6vh,46px);line-height:1.4}
-  h2{font-size:clamp(19px,3.3vh,32px);line-height:1.42;margin-bottom:13px}
-  h3{font-size:clamp(14px,2.1vh,17px)}
-  p,.row .val,ol.num li,ul.tick li,.item p,.stg .d{font-size:clamp(12.5px,1.95vh,16px);line-height:1.68}
-  .lead{font-size:clamp(14px,2.4vh,19px);line-height:1.62}
+  h1{font-size:clamp(27px,5.4vh,56px);line-height:1.36}
+  h2{font-size:clamp(21px,4.3vh,44px);line-height:1.36;margin-bottom:clamp(12px,2vh,20px)}
+  h3{font-size:clamp(14.5px,2.35vh,19px)}
+  p,.row .val,ol.num li,ul.tick li,.item p,.stg .d{font-size:clamp(13px,2.15vh,18px);line-height:1.72}
+  .lead{font-size:clamp(15px,2.7vh,23px);line-height:1.62}
   .note{font-size:clamp(11.5px,1.7vh,14px);line-height:1.6}
   p{margin-bottom:9px}
   .eyebrow{margin-bottom:11px}
@@ -269,7 +307,7 @@ figure img.fallback[data-show]{display:block}
   .stg{padding:8px 14px}
   .stg .t{font-size:clamp(13px,2vh,16px)}
   ol.num,ul.tick,.g{gap:9px}
-  blockquote{font-size:clamp(14px,2.5vh,21px);line-height:1.58}
+  blockquote{font-size:clamp(15px,2.9vh,26px);line-height:1.56}
   .rule{margin:13px 0}
   .spec{font-size:clamp(17px,3.6vh,30px);padding:14px 18px;margin:13px 0;line-height:1.85}
   .stat{padding:9px 8px}
@@ -293,13 +331,14 @@ figure img.fallback[data-show]{display:block}
 </head>
 <body>
 
+<div id="sec"></div>
 <div id="brand">منهاج</div>
 <button id="idxBtn" aria-label="الفهرس">☰ الفهرس</button>
 
 <div id="deck">
 
 <!-- 1 -->
-<section class="slide cover" data-t="الغلاف">
+<section class="slide cover dark" data-t="الغلاف">
  <div class="inner">
   <div class="mark">منهاج</div>
   <div class="for">أُعدَّت لمجلس مؤسّسة نماء · هولندا</div>
@@ -330,6 +369,15 @@ figure img.fallback[data-show]{display:block}
   </figure>
   </div>
   <blockquote>وما نعرضه ليس طلبَ تزكية. نبدأ بتجربةٍ داخل نماء تحكمون عليها بأنفسكم، ولا نطلب منكم أن تعرّفوا بها أحداً قبل أن تقتنعوا. فإن لم تقنعكم، فقد وفّرنا عليكم وعلينا سنةً من العمل.</blockquote>
+ </div>
+</section>
+
+<section class="slide dark" data-t="البرنامج" data-sec="القسم الأوّل · البرنامج">
+ <div class="inner">
+  <div class="dnum">٠١</div>
+  <div class="dtitle">البرنامج</div>
+  <div class="dline"></div>
+  <div class="dsub">المشكلة · الوعد · الفلسفة التربويّة · المسار ومراحله · التقييم</div>
  </div>
 </section>
 
@@ -514,6 +562,15 @@ figure img.fallback[data-show]{display:block}
  </div>
 </section>
 
+<section class="slide dark" data-t="المعلّم" data-sec="القسم الثاني · المعلّم">
+ <div class="inner">
+  <div class="dnum">٠٢</div>
+  <div class="dtitle">المعلّم</div>
+  <div class="dline"></div>
+  <div class="dsub">من يدرّس أبناءكم · شروط الاختيار · التدريب · الإشراف المستمرّ</div>
+ </div>
+</section>
+
 <!-- 12 -->
 <section class="slide" data-t="من يدرّس أبناءكم">
  <div class="inner">
@@ -554,6 +611,15 @@ figure img.fallback[data-show]{display:block}
    <div class="item"><p><strong>أداء أطفاله في تقييمات الانتقال يُقاس</strong></p></div>
   </div>
   <p style="margin-top:16px">فإن تعثّرت مجموعةٌ ظهر ذلك في أسبوعين لا في نهاية الفصل. <strong>وقواعد السلوك ليست توصياتٍ بل شروط عمل</strong> — ومخالفتها تعني إيقاف المعلّم فوراً عن التدريس ريثما يُنظر في الأمر.</p>
+ </div>
+</section>
+
+<section class="slide dark" data-t="المنهج وتطويره" data-sec="القسم الثالث · المنهج">
+ <div class="inner">
+  <div class="dnum">٠٣</div>
+  <div class="dtitle">المنهج وتطويره</div>
+  <div class="dline"></div>
+  <div class="dsub">من نحن · التنوّع ومعايير الاعتماد · المنهج المعتمد · رؤية التطوير · الأطفال شركاء</div>
  </div>
 </section>
 
@@ -753,6 +819,15 @@ figure img.fallback[data-show]{display:block}
  </div>
 </section>
 
+<section class="slide dark" data-t="القيم والمبادئ" data-sec="القسم الرابع · القيم">
+ <div class="inner">
+  <div class="dnum">٠٤</div>
+  <div class="dtitle">القيم والمبادئ</div>
+  <div class="dline"></div>
+  <div class="dsub">لماذا هي جزءٌ من التصميم · القيم المستهدَفة · كيف تُنقَل · انسجامها مع القيم المدنيّة</div>
+ </div>
+</section>
+
 <!-- 22 -->
 <section class="slide" data-t="لماذا القيم">
  <div class="inner">
@@ -779,7 +854,7 @@ figure img.fallback[data-show]{display:block}
  <div class="inner">
   <div class="eyebrow">القسم الرابع · القيم والمبادئ</div>
   <h2>القيم المستهدَفة — <em>وكيف تظهر عمليّاً</em></h2>
-  <div class="rows">
+  <div class="rows two">
    <div class="row"><div class="lbl">الصدق</div><div class="val">يُسأل الطفل عن واجبه فيُقال له إنّ «لم أفعله» جوابٌ مقبول، وإنّ ادّعاء الإنجاز هو وحده غير المقبول</div></div>
    <div class="row"><div class="lbl">الأمانة</div><div class="val">التقييم بلا مساعدةٍ خفيّة؛ والطفل يقرأ ما يقرأ لا ما حفظ</div></div>
    <div class="row"><div class="lbl">برّ الوالدين واحترام الكبير</div><div class="val">حاضرٌ في نصوص القراءة وفي طريقة مخاطبة المعلّم</div></div>
@@ -823,6 +898,15 @@ figure img.fallback[data-show]{display:block}
  </div>
 </section>
 
+<section class="slide dark" data-t="المنصّة" data-sec="القسم الخامس · المنصّة">
+ <div class="inner">
+  <div class="dnum">٠٥</div>
+  <div class="dtitle">المنصّة</div>
+  <div class="dline"></div>
+  <div class="dsub">لماذا بنيناها · رحلة الطفل · ضوابط الحماية · الجودة · الأسرة شريك</div>
+ </div>
+</section>
+
 <!-- 26 -->
 <section class="slide" data-t="لماذا منصّة خاصّة">
  <div class="inner">
@@ -860,7 +944,7 @@ figure img.fallback[data-show]{display:block}
  <div class="inner">
   <div class="eyebrow">القسم الخامس · المنصّة</div>
   <h2>ضوابط الحماية — <em>مبنيّةٌ في النظام</em></h2>
-  <div class="rows">
+  <div class="rows two">
    <div class="row"><div class="lbl">لا تواصل خاصّاً بين معلّم وطفل أو أسرة</div><div class="val"><strong>لا يوجد في النظام خيط محادثةٍ ثنائيّ أصلاً.</strong> كلّ محادثةٍ ثلاثة أطرافٍ فأكثر، والإدارة عضوٌ في كلّ خيط. والدردشة الخاصّة داخل قاعة الحصّة <strong>مقفلةٌ على مستوى الحساب</strong> فلا يستطيع أحدٌ فتحها.</div></div>
    <div class="row"><div class="lbl">الحضوريّ في مكانٍ معلوم</div><div class="val">حيث يكون التدريس وجهاً لوجه، يكون في <strong>مكان تجمّعٍ قانونيّ</strong> — مركزٌ أو مسجدٌ أو مدرسة — <strong>ولا يُدرَّس طفلٌ في بيتٍ خاصّ أبداً</strong>. وهو نظير قاعدة «لا خيط ثنائيّ» في الفضاء الحقيقيّ: لا لقاءَ بالغٍ بطفلٍ في مكانٍ لا يراه فيه أحد.</div></div>
    <div class="row"><div class="lbl">لا شيء يُحذف</div><div class="val">لا حذف للرسائل — فالمحذوف هو ما يهمّ عند أيّ مراجعة.</div></div>
@@ -891,6 +975,15 @@ figure img.fallback[data-show]{display:block}
   <div class="rule"></div>
   <h3>والأسرة شريكٌ لا متلقٍّ</h3>
   <p>وليّ الأمر يرى جدول ابنه، وتقريراً بعد كلّ حصّة، وتقدّمه عبر المستويات، وسجلّ حضوره — بلغته هو لا بلغة المعلّم. وهذا مقصود: <strong>الطفل الذي يتابعه أبوه يُكمل، والذي لا يُتابَع ينسحب.</strong> فالتقرير المنتظم ليس إجراءً إداريّاً بل أداةٌ تعليميّة.</p>
+ </div>
+</section>
+
+<section class="slide dark" data-t="التعاون مع نماء" data-sec="القسم السادس · التعاون">
+ <div class="inner">
+  <div class="dnum">٠٦</div>
+  <div class="dtitle">التعاون مع نماء</div>
+  <div class="dline"></div>
+  <div class="dsub">كيف نرى الشراكة · صيغ التعاون · التجربة المقترحة · ما نرجوه</div>
  </div>
 </section>
 
@@ -980,7 +1073,7 @@ figure img.fallback[data-show]{display:block}
  <div class="inner">
   <div class="eyebrow">تُسلَّم عند الطلب</div>
   <h2>الملاحق</h2>
-  <div class="rows">
+  <div class="rows two">
    <div class="row"><div class="lbl">(أ)</div><div class="val">خريطة مستويات المنهج المعتمد، ومخرَج كلٍّ، ومعايير الاجتياز، <strong>وربطها بمستويات CEFR</strong></div></div>
    <div class="row"><div class="lbl">(ب)</div><div class="val">قائمة القيم كاملةً بأمثلتها</div></div>
    <div class="row"><div class="lbl">(ج)</div><div class="val">درسٌ كامل نموذجيّ — مترجَم</div></div>
@@ -994,7 +1087,7 @@ figure img.fallback[data-show]{display:block}
 </section>
 
 <!-- 35 -->
-<section class="slide cover" data-t="الختام">
+<section class="slide cover dark" data-t="الختام">
  <div class="inner">
   <div class="mark">منهاج</div>
   <div class="for">مسار القراءة العربيّة للأطفال في أوروبا</div>
@@ -1045,6 +1138,10 @@ figure img.fallback[data-show]{display:block}
     slides.forEach(function(s,k){s.classList.toggle('on',k===i);});
     slides[i].scrollTop=0;
     bar.style.width=((i+1)/N*100)+'%';
+    document.body.classList.toggle('on-dark',slides[i].classList.contains('dark'));
+    var lab='';
+    for(var q=i;q>=0;q--){ if(slides[q].dataset.sec){lab=slides[q].dataset.sec;break;} }
+    var sc=document.getElementById('sec'); if(sc) sc.textContent=lab;
     count.textContent=ar(i+1)+' / '+ar(N);
     if(location.hash!=='#'+(i+1)) history.replaceState(null,'','#'+(i+1));
   }
