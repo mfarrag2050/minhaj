@@ -270,9 +270,15 @@ body.on-dark #bar{background:rgba(242,242,236,.15)}
 
 
 /* ---------- ornament: geometry, gold, warmth ---------- */
-.slide:not(.dark){background:
-  radial-gradient(120% 90% at 82% 0%, rgba(217,174,95,.12) 0%, rgba(217,174,95,0) 58%),
-  linear-gradient(180deg,var(--paper) 0%,var(--paper2) 100%)}
+.slide:not(.dark){
+  background-image:
+    radial-gradient(120% 90% at 82% 0%, rgba(217,174,95,.12) 0%, rgba(217,174,95,0) 58%),
+    linear-gradient(rgba(247,242,230,.56),rgba(247,242,230,.56)),
+    var(--horizon),
+    linear-gradient(180deg,var(--paper) 0%,var(--paper2) 100%);
+  background-size:auto,100% clamp(74px,14vh,158px),100% clamp(74px,14vh,158px),auto;
+  background-position:center,bottom center,bottom center,center;
+  background-repeat:no-repeat,no-repeat,no-repeat,no-repeat}
 .slide.dark{background:radial-gradient(130% 100% at 78% 12%, var(--dk-bg2) 0%, var(--dk-bg) 62%);
   color:var(--dk-fg)}
 .slide.dark::before{content:"";position:absolute;inset:0;background-image:var(--tile);
@@ -350,6 +356,28 @@ body.on-dark #idxBtn,body.on-dark #nav button{background:rgba(14,24,21,.55)}
 @keyframes horizonIn{from{opacity:0}to{opacity:.42}}
 .slide.dark.cover.on::after{animation-name:horizonInCover}
 @keyframes horizonInCover{from{opacity:0}to{opacity:.62}}
+
+
+/* ---------- light slides: manuscript frame, corner stars, edge texture ---------- */
+.slide:not(.dark)::before{
+  background-size:74px 74px;opacity:.11;
+  -webkit-mask-image:linear-gradient(to right,#000 0%,rgba(0,0,0,.55) 9%,transparent 24%);
+  mask-image:linear-gradient(to right,#000 0%,rgba(0,0,0,.55) 9%,transparent 24%)}
+.slide:not(.dark)::after{content:"";position:absolute;
+  inset:clamp(9px,1.5vh,17px);pointer-events:none;z-index:0;
+  border:1px solid rgba(168,128,47,.30);
+  box-shadow:inset 0 0 0 4px rgba(168,128,47,.055);
+  background-image:var(--med),var(--med),var(--med),var(--med);
+  background-repeat:no-repeat;
+  background-size:clamp(17px,2.4vh,25px) clamp(17px,2.4vh,25px);
+  background-position:top 7px left 7px,top 7px right 7px,bottom 7px left 7px,bottom 7px right 7px}
+
+/* a wide letterbox band for a picture that must not eat the slide */
+figure.band img{width:100%;max-height:clamp(84px,15vh,158px);
+  object-fit:cover;object-position:center 42%}
+figure.band{margin-top:clamp(10px,1.6vh,16px)}
+figure video,figure img{max-height:clamp(150px,34vh,380px);object-fit:cover;object-position:center 42%}
+.split figure video,.split figure img{max-height:clamp(150px,42vh,460px)}
 
 /* ---------- chrome ---------- */
 #bar{position:fixed;inset:auto 0 0 0;height:3px;background:var(--rule);z-index:40}
@@ -436,9 +464,8 @@ body.on-dark #brand:hover{color:var(--dk-acc)}
   <h1>مسار القراءة العربيّة<br>للأطفال في أوروبا</h1>
   <p class="note">Arabic Literacy Pathway · Arabisch geletterdheidstraject</p>
   <figure>
-   <video src="video/01-cover.mp4" poster="images/01-cover.png" autoplay muted loop playsinline preload="metadata"></video>
-   <img class="fallback" src="images/01-cover.png" alt="طفل يقرأ من كتاب مفتوح">
-   <div class="ph">الغلاف · <span dir="ltr">video/01-cover.mp4</span> أو <span dir="ltr">images/01-cover.png</span></div>
+   <video src="video/01-cover.mp4" autoplay muted loop playsinline preload="auto"></video>
+   <div class="ph">الغلاف · <span dir="ltr">video/01-cover.mp4</span></div>
   </figure>
  </div>
 </section>
@@ -503,6 +530,10 @@ body.on-dark #brand:hover{color:var(--dk-acc)}
   </div>
   <p><strong>والمخرَج محدَّد وقابل للاختبار:</strong> أن يقرأ الطفل نصّاً عربيّاً مشكولاً لم يره من قبل، قراءةً صحيحة، بلا معاونة.</p>
   <p>ليس «أن يتعرّف على الحروف»، ولا «أن يحبّ اللغة»، ولا «أن يكتسب الأساسيّات». هذه نتائج جميلة يصعب التحقّق منها. نحن نَعِد بمهارةٍ واحدة <strong>يستطيع الأب أن يتحقّق منها بنفسه</strong>: يعطي ابنه صفحة، فيقرأ.</p>
+  <figure class="band">
+   <img src="images/01-cover.png" alt="طفل يفتح كتاباً ويقرأ">
+   <div class="ph">صورة الوعد · <span dir="ltr">images/01-cover.png</span></div>
+  </figure>
   <p class="note">وصدق العبارة يعنينا أكثر من وقعها: النتيجة النموذجيّة موثّقة، وليست ضماناً — الأطفال يختلفون، ودرجات الانتظام تختلف. ما نلتزم به هو <strong>الشفافيّة في القياس</strong>: معايير الاجتياز مكتوبة ومعلنة سلفاً، ونتائج كلّ دفعة تُعرض كما هي، بمن فيهم من لم يبلغ الهدف.</p>
  </div>
 </section>
