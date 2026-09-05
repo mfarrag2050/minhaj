@@ -388,6 +388,7 @@ figure video,figure img{max-height:clamp(150px,34vh,380px);object-fit:cover;obje
   background:var(--paper);color:var(--ink2);border:1px solid var(--rule);
   padding:7px 14px;cursor:pointer;border-radius:2px;line-height:1.6}
 #nav button:hover,#idxBtn:hover{border-color:var(--olive);color:var(--olive)}
+#nav button[disabled]{opacity:.26;cursor:default;pointer-events:none}
 #nav button:focus-visible,#idxBtn:focus-visible{outline:2px solid var(--ochre);outline-offset:2px}
 #count{font-family:var(--sans);font-size:12px;color:var(--muted);
   font-variant-numeric:tabular-nums;min-width:58px;text-align:center}
@@ -1263,6 +1264,8 @@ body.on-dark #brand:hover{color:var(--dk-acc)}
     var lab='';
     for(var q=i;q>=0;q--){ if(slides[q].dataset.sec){lab=slides[q].dataset.sec;break;} }
     var sc=document.getElementById('sec'); if(sc) sc.textContent=lab;
+    document.getElementById('prev').disabled=(i===0);
+    document.getElementById('next').disabled=(i===N-1);
     count.textContent=ar(i+1)+' / '+ar(N);
     if(location.hash!=='#'+(i+1)) history.replaceState(null,'','#'+(i+1));
   }
