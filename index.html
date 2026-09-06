@@ -21,6 +21,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
+html{overflow:hidden}
 body{background:var(--paper);color:var(--ink);font-family:var(--serif);direction:rtl;text-align:right;
   overflow:hidden;-webkit-font-smoothing:antialiased}
 
@@ -379,6 +380,7 @@ figure.band{margin-top:clamp(10px,1.6vh,16px)}
 figure video,figure img{max-height:clamp(150px,34vh,380px);object-fit:cover;object-position:center 42%}
 .split figure video,.split figure img{max-height:clamp(150px,42vh,460px)}
 
+
 /* ---------- chrome ---------- */
 #bar{position:fixed;inset:auto 0 0 0;height:3px;background:var(--rule);z-index:40}
 #bar i{display:block;height:100%;background:var(--olive);width:0;transition:width .35s ease}
@@ -444,6 +446,57 @@ body.on-dark #brand:hover{color:var(--dk-acc)}
   h1{font-size:clamp(22px,4.4vh,34px)}
   h2{font-size:clamp(17px,3.2vh,25px)}
 }
+/* ---------- phones: read, don't present ---------- */
+@media (max-width:640px){
+  .slide{padding:clamp(14px,3vh,24px) 16px 104px}
+  .slide:not(.dark)::before{display:none}
+  .slide:not(.dark)::after{inset:6px;background-size:14px 14px;
+    background-position:top 4px left 4px,top 4px right 4px,bottom 4px left 4px,bottom 4px right 4px}
+  .slide.dark::after{height:clamp(76px,12vh,118px)}
+  .slide.dark::before{background-size:56px 56px}
+  h1{font-size:clamp(23px,6.6vw,32px);line-height:1.38}
+  h2{font-size:clamp(19px,5.6vw,27px);line-height:1.4;margin-bottom:12px}
+  h3{font-size:15.5px}
+  p,.row .val,ol.num li,ul.tick li,.item p,.stg .d{font-size:15px;line-height:1.78}
+  .lead{font-size:16.5px;line-height:1.75}
+  .note{font-size:13px}
+  .eyebrow{font-size:10.5px;margin-bottom:10px}
+  .spec{font-size:19px;padding:13px 14px;line-height:1.9}
+  .harakat{grid-template-columns:repeat(2,1fr)}
+  .hk b{font-size:24px}
+  .glyph{font-size:54px}
+  .gword{font-size:18px}
+  .dnum{padding:15px 21px}
+  .dtitle{font-size:29px}
+  .dsub{font-size:14px}
+  .cover .mark{font-size:34px}
+  .cover h1{font-size:20px}
+  blockquote{font-size:16.5px;padding-right:14px}
+  .row{padding:9px 0}
+  .stat b{font-size:21px}
+  #brand{font-size:12px}
+  #sec{font-size:10px;top:32px}
+  figure video,figure img{max-height:34vh}
+}
+
+/* ---------- touch: bigger targets ---------- */
+@media (pointer:coarse){
+  #nav button,#idxBtn{padding:12px 18px;font-size:14px;min-height:44px}
+  #idx li{padding:13px 0;font-size:15.5px}
+  #brand{padding:6px 0}
+}
+
+/* ---------- tell the reader a slide continues below ---------- */
+#more{position:fixed;left:50%;transform:translateX(-50%);bottom:62px;z-index:41;
+  font-family:var(--sans);font-size:11px;letter-spacing:.1em;color:var(--gold);
+  background:linear-gradient(to top,var(--paper) 40%,rgba(247,242,230,0));
+  padding:14px 16px 4px;pointer-events:none;text-align:center;line-height:1.3}
+body.on-dark #more{color:var(--dk-acc);
+  background:linear-gradient(to top,var(--dk-bg) 40%,rgba(14,24,21,0))}
+#more b{display:block;font-size:15px;font-weight:400}
+@media (prefers-reduced-motion:no-preference){#more b{animation:nudge 1.7s ease-in-out infinite}}
+@keyframes nudge{0%,100%{transform:translateY(0);opacity:.65}50%{transform:translateY(3px);opacity:1}}
+
 @media print{#nav,#bar,#brand,#idxBtn{display:none}
   .slide{display:flex!important;position:static;page-break-after:always;height:100vh}}
 </style>
@@ -1231,6 +1284,7 @@ body.on-dark #brand:hover{color:var(--dk-acc)}
  <ol id="idxList"></ol>
 </div>
 
+<div id="more" hidden><span>تابع</span><b>▾</b></div>
 <div id="bar"><i></i></div>
 <div id="nav">
  <button id="prev" aria-label="السابق">→ السابق</button>
@@ -1266,9 +1320,25 @@ body.on-dark #brand:hover{color:var(--dk-acc)}
     var sc=document.getElementById('sec'); if(sc) sc.textContent=lab;
     document.getElementById('prev').disabled=(i===0);
     document.getElementById('next').disabled=(i===N-1);
+    hint();
     count.textContent=ar(i+1)+' / '+ar(N);
     if(location.hash!=='#'+(i+1)) history.replaceState(null,'','#'+(i+1));
   }
+  var more=document.getElementById('more');
+  function hint(){
+    var s=slides[i];
+    setTimeout(function(){
+      var canScroll=s.scrollHeight-s.clientHeight>8;
+      more.hidden=!(canScroll&&s.scrollTop<6);
+    },60);
+  }
+  [].forEach.call(slides,function(s){
+    s.addEventListener('scroll',function(){
+      if(s!==slides[i])return;
+      more.hidden=!(s.scrollHeight-s.clientHeight>8&&s.scrollTop<6);
+    },{passive:true});
+  });
+  window.addEventListener('resize',hint);
   function next(){go(i+1);} function prev(){go(i-1);}
   function closeIdx(){idx.classList.remove('on');}
 
